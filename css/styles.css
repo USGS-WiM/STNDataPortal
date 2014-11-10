@@ -1,0 +1,96 @@
+/*#eventSelector, #evtTypeSelector, #evtStatusSelector, #cntySelector {*/
+    /*width:20em;*/
+/*}*/
+
+/*#cntyForm {*/
+    /*margin-left:2em;*/
+/*}*/
+
+@font-face {
+    font-family: BryantRegular;
+    src: url('../../fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebRegular.eot');
+    src: url('../../fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebRegular.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/Bryant2Combo/Bryant2Web_WOFF/BryantWebRegular.woff') format('woff'),
+    url('../../fonts/Bryant2Combo/Bryant2/Bryant-Regular.otf') format('openType');
+}
+
+
+@font-face {
+    font-family: BryantBold;
+    src: url('../../fonts/fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebBold.eot');
+    src: url('../../fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebBold.eot?#iefix') format('embedded-opentype'),
+    url('../../fonts/Bryant2Combo/Bryant2Web_WOFF/BryantWebBold.woff') format('woff'),
+    url('../../fonts/Bryant2Combo/Bryant2/Bryant-Bold.otf') format('openType');
+
+}
+
+#usgsLogoDiv{
+    background-color:black;
+}
+
+.form-group{
+    padding-left: 1em;
+}
+
+.radio {
+    padding-left: 1em;
+}
+
+.container-fluid {
+    margin-left:1em;
+    margin-right: 1em;
+}
+
+#downloadBtnDiv{
+    float: left;
+}
+
+#formatSelect{
+    float: left;
+}
+
+.navbar{
+    background-color: #59595C;
+    color: #E7E4CE;
+    font-family: BryantRegular;
+}
+
+.navbar-brand{
+    font-size: 2em;
+}
+
+.btn-primary {
+    background-color: #F37A49;
+    border-color:#59595C ;
+    font-family: BryantRegular;
+}
+
+.btn-primary:hover {
+    background-color: #7E7E84;
+}
+
+.btn-primary.active{
+    background-color: #7E7E84
+}
+
+
+.panel-default .panel-heading{
+    background-color:#59595C;
+    color:#E7E4CE;
+}
+
+.panel-title {
+    font-family: BryantRegular;
+}
+
+.panel-body{
+    background-color: #E7E4CE;
+}
+
+#body {
+    background-color:#C4C0A9;
+}
+
+.control-label{
+    font-family: BryantBold;
+}
