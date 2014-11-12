@@ -17,38 +17,7 @@
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<!--<script src="js/STNDataPortal.js" type="application/javascript"></script>-->
-
-
-
-<script>
-    $( document ).ready(function() {
-        alert( "ready!" );
-
-        $.ajax({
-            dataType: 'xml',
-            type: 'GET',
-            url:'http://107.20.206.65/STNServices/Sitestates',
-            headers:{
-                'Accept': '*/*'
-            },
-            success: function(data){
-                if (data.length>0){
-                    $('#stateSelect').append($('<option></option>').val(0).html("Test"));
-                    $.each(data, function(){
-
-                        alert("this ajax is returning:" + data);
-                        //$('#stateSelect').append($('<option></option>').val(this['STATE']).html(this['STATE']));
-                    });
-                }
-            },
-            error: function(error) {
-                alert("Oh snap, error. Here it is: " + error);
-            }
-        });
-    });
-
-</script>
+<script src="js/STNDataPortal.js" type="application/javascript"></script>
 
 <div class="navbar" id="titleBar">
     <div class="navbar-header">
@@ -79,18 +48,18 @@
                             <label for="evtSelect" class="control-label">Name</label>
                             <select class="form-control" id="evtSelect">
                                 <option value="all">All</option>
-                                <option value="irene">Hurricane Irene</option>
-                                <option value="issac">Hurricane Issac</option>
-                                <option value="paFlood">PA Flood 2013</option>
+                                <!--<option value="irene">Hurricane Irene</option>-->
+                                <!--<option value="issac">Hurricane Issac</option>-->
+                                <!--<option value="paFlood">PA Flood 2013</option>-->
                             </select>
                         </div>
                         <div class="form-group" id="evtTypeForm">
                             <label for="evtTypeSelect" class="control-label">Type</label>
                             <select class="form-control" id="evtTypeSelect">
                                 <option value="all">All</option>
-                                <option value="drought">Drought</option>
-                                <option value="hurricane">Hurricane</option>
-                                <option value="riverineFlood">Riverine Flood</option>
+                                <!--<option value="drought">Drought</option>-->
+                                <!--<option value="hurricane">Hurricane</option>-->
+                                <!--<option value="riverineFlood">Riverine Flood</option>-->
                             </select>
                         </div>
                         <div class="form-group" id="evtStatusForm">
@@ -325,15 +294,15 @@
                             <label for="deployTypeSelect"  class="col-sm-2 control-label">Deployment Type</label>
                             <div class="col-sm-10">
                                 <select class="form-control" id="deployTypeSelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">Air Temperature</option>
-                                    <option value="s2">Barometric Pressure</option>
-                                    <option value="s3">Humidity</option>
-                                    <option value="s4">Temperature</option>
-                                    <option value="s5">Water Level</option>
-                                    <option value="s6">Water Temperature</option>
-                                    <option value="value6">Wave Height</option>
-                                    <option value="value7">Windspeed</option>
+                                    <option value="all">All</option>
+                                    <!--<option value="s1">Air Temperature</option>-->
+                                    <!--<option value="s2">Barometric Pressure</option>-->
+                                    <!--<option value="s3">Humidity</option>-->
+                                    <!--<option value="s4">Temperature</option>-->
+                                    <!--<option value="s5">Water Level</option>-->
+                                    <!--<option value="s6">Water Temperature</option>-->
+                                    <!--<option value="value6">Wave Height</option>-->
+                                    <!--<option value="value7">Windspeed</option>-->
                                 </select>
                             </div>
                         </div>
