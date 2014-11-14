@@ -12,11 +12,13 @@
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/datepicker3.css" rel="stylesheet">
+    <link href="css/select2.css" rel="stylesheet">
 </head>
 
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="js/select2.js" type="application/javascript"></script>
 <script src="js/STNDataPortal.js" type="application/javascript"></script>
 
 <div class="navbar" id="titleBar">
@@ -44,26 +46,26 @@
                 </div>
                 <div class="panel-body">
                     <form class="form-inline" role="form">
-                        <div class="form-group" id="evtNameForm">
-                            <label for="evtSelect" class="control-label">Name</label>
-                            <select class="form-control" id="evtSelect">
-                                <option value="all">All</option>
+                        <div class="form-group col-lg-5" id="evtNameForm">
+                            <label for="evtSelect"  class="control-label">Name</label>
+                            <select id="evtSelect" style="width: 100%" multiple>
+                                <!--<option value="all">All</option>-->
                                 <!--<option value="irene">Hurricane Irene</option>-->
                                 <!--<option value="issac">Hurricane Issac</option>-->
                                 <!--<option value="paFlood">PA Flood 2013</option>-->
                             </select>
                         </div>
-                        <div class="form-group" id="evtTypeForm">
+                        <div class="form-group col-lg-3" id="evtTypeForm">
                             <label for="evtTypeSelect" class="control-label">Type</label>
-                            <select class="form-control" id="evtTypeSelect">
-                                <option value="all">All</option>
+                            <select id="evtTypeSelect" style="width: 100%" multiple>
+                                <!--<option value="all">All</option>-->
                                 <!--<option value="drought">Drought</option>-->
                                 <!--<option value="hurricane">Hurricane</option>-->
                                 <!--<option value="riverineFlood">Riverine Flood</option>-->
                             </select>
                         </div>
-                        <div class="form-group" id="evtStatusForm">
-                            <label for="evtStatusRadios" class="radio inline control-label">Status</label>
+                        <div class="form-group col-lg-3" id="evtStatusForm">
+                            <label for="evtStatusRadios" class="control-label">Status</label>
                             <div class="btn-group" data-toggle="buttons" id="evtStatusRadios">
                                 <label class="btn btn-primary">
                                     <input type="radio" name="active" id="op1">Active
@@ -85,19 +87,19 @@
                 </div>
                 <div class="panel-body">
                     <form class="form-inline" role="form">
-                        <div class="form-group" id="stateForm">
+                        <div class="form-group col-lg-3" id="stateForm">
                             <label for="stateSelect" class="control-label">State</label>
-                            <select class="form-control" id="stateSelect">
-                                <option value="all">All</option>
+                            <select id="stateSelect" style="width: 100%" multiple>
                                 <option value="al">Alabama</option>
                                 <option value="fl">Florida</option>
                                 <option value="ga">Georgia</option>
+                                <option value="nj">New Jersey</option>
+                                <option value="ny">New York</option>
                             </select>
                         </div>
-                        <div class="form-group" id="cntyForm">
+                        <div class="form-group col-lg-3" id="cntyForm">
                             <label for="cntySelect" class="control-label">County</label>
-                            <select class="form-control" id="cntySelect">
-                                <option value="all">All</option>
+                            <select id="cntySelect" style="width: 100%" multiple>
                                 <option value="cnty4">Ann Arundel</option>
                                 <option value="cnty3">Dane</option>
                                 <option value="cnty2">Duval</option>
@@ -123,7 +125,7 @@
                         <div class="form-group" id="waterBodyForm">
                             <label for="waterbodySelect" class="col-sm-2 control-label">Waterbody</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="waterbodySelect">
+                                <select id="waterbodySelect" style="width: 100%" multiple>
                                     <option value="v1">All</option>
                                     <option value="s1">Johnson Creek</option>
                                     <option value="s2">Lake Tonia</option>
@@ -139,17 +141,17 @@
                         <div class="form-group" id="hwmTypeForm">
                             <label for="hwmTypeSelect" class="col-sm-2 control-label">HWM Type</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="hwmTypeSelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">Clear water</option>
-                                    <option value="s2">Debris</option>
-                                    <option value="s3">Melted snow line</option>
-                                    <option value="s4">Mud</option>
-                                    <option value="s5">Other</option>
-                                    <option value="s6">Present at peak</option>
-                                    <option value="value6">Seed line</option>
-                                    <option value="value7">Stain line</option>
-                                    <option value="value8">Vegetation line</option>
+                                <select id="hwmTypeSelect" style="width: 100%" multiple>
+                                    <!--<option value="v1">All</option>-->
+                                    <!--<option value="s1">Clear water</option>-->
+                                    <!--<option value="s2">Debris</option>-->
+                                    <!--<option value="s3">Melted snow line</option>-->
+                                    <!--<option value="s4">Mud</option>-->
+                                    <!--<option value="s5">Other</option>-->
+                                    <!--<option value="s6">Present at peak</option>-->
+                                    <!--<option value="value6">Seed line</option>-->
+                                    <!--<option value="value7">Stain line</option>-->
+                                    <!--<option value="value8">Vegetation line</option>-->
                                 </select>
                             </div>
                         </div>
@@ -169,14 +171,14 @@
                         <div class="form-group" id="qualityForm">
                             <label for="qualitySelect" class="col-sm-2 control-label">Quality</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="qualitySelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">Unknown/Historical</option>
-                                    <option value="s2">Excellent</option>
-                                    <option value="s3">Good</option>
-                                    <option value="s4">Fair</option>
-                                    <option value="s5">Poor</option>
-                                    <option value="s6">VP</option>
+                                <select id="qualitySelect" style="width: 100%" multiple>
+                                    <!--<option value="v1">All</option>-->
+                                    <!--<option value="s1">Unknown/Historical</option>-->
+                                    <!--<option value="s2">Excellent</option>-->
+                                    <!--<option value="s3">Good</option>-->
+                                    <!--<option value="s4">Fair</option>-->
+                                    <!--<option value="s5">Poor</option>-->
+                                    <!--<option value="s6">VP</option>-->
                                 </select>
                             </div>
                         </div>
@@ -193,34 +195,34 @@
                         <div class="form-group" id="collectMethodForm">
                             <label for="collectMethodSelect" class="col-sm-2 control-label">Collection Method</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="collectMethodSelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">Handheld GPS</option>
-                                    <option value="s2">Static-GNSS</option>
-                                    <option value="s3">Phone/Car GPS</option>
-                                    <option value="s4">Map (digital or paper)</option>
-                                    <option value="s5">Other</option>
-                                    <option value="s6">RT-GNSS</option>
-                                    <option value="value6">Seed line</option>
-                                    <option value="value7">Stain line</option>
-                                    <option value="value8">Vegetation line</option>
+                                <select id="collectMethodSelect" style="width: 100%" multiple>
+                                    <!--<option value="v1">All</option>-->
+                                    <!--<option value="s1">Handheld GPS</option>-->
+                                    <!--<option value="s2">Static-GNSS</option>-->
+                                    <!--<option value="s3">Phone/Car GPS</option>-->
+                                    <!--<option value="s4">Map (digital or paper)</option>-->
+                                    <!--<option value="s5">Other</option>-->
+                                    <!--<option value="s6">RT-GNSS</option>-->
+                                    <!--<option value="value6">Seed line</option>-->
+                                    <!--<option value="value7">Stain line</option>-->
+                                    <!--<option value="value8">Vegetation line</option>-->
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" id="vertCollectForm">
                             <label for="vertCollectSelect" class="col-sm-2 control-label">Vertical Collection Method</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="vertCollectSelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">Tape Measure</option>
-                                    <option value="s2">Level Gun</option>
-                                    <option value="s3">Hand Level</option>
-                                    <option value="s4">Other</option>
-                                    <option value="s5">Static-GNSS</option>
-                                    <option value="s6">Total Station</option>
-                                    <option value="value6">RT-GNSS</option>
-                                    <option value="value7">Stain line</option>
-                                    <option value="value8">Vegetation line</option>
+                                <select id="vertCollectSelect" style="width: 100%" multiple>
+                                    <!--<option value="v1">All</option>-->
+                                    <!--<option value="s1">Tape Measure</option>-->
+                                    <!--<option value="s2">Level Gun</option>-->
+                                    <!--<option value="s3">Hand Level</option>-->
+                                    <!--<option value="s4">Other</option>-->
+                                    <!--<option value="s5">Static-GNSS</option>-->
+                                    <!--<option value="s6">Total Station</option>-->
+                                    <!--<option value="value6">RT-GNSS</option>-->
+                                    <!--<option value="value7">Stain line</option>-->
+                                    <!--<option value="value8">Vegetation line</option>-->
                                 </select>
                             </div>
                         </div>
@@ -252,49 +254,49 @@
                         <div class="form-group" id="sensorTypeForm">
                             <label for="sensorTypeSelect" class="col-sm-2 control-label">Sensor Type</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="sensorTypeSelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">Meteorological Station</option>
-                                    <option value="s2">Pressure Transducer</option>
-                                    <option value="s3">Rain Gage</option>
-                                    <option value="s4">Rapid Deployment Gage</option>
-                                    <option value="s5">Thermometer</option>
-                                    <option value="s6">Webcam</option>
+                                <select id="sensorTypeSelect" style="width: 100%" multiple>
+                                    <!--<option value="v1">All</option>-->
+                                    <!--<option value="s1">Meteorological Station</option>-->
+                                    <!--<option value="s2">Pressure Transducer</option>-->
+                                    <!--<option value="s3">Rain Gage</option>-->
+                                    <!--<option value="s4">Rapid Deployment Gage</option>-->
+                                    <!--<option value="s5">Thermometer</option>-->
+                                    <!--<option value="s6">Webcam</option>-->
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" id="sensorBrandForm">
                             <label for="sensorBrandSelect" class="col-sm-2 control-label">Sensor Brand</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="sensorBrandSelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">HOBO</option>
-                                    <option value="s2">Level Troll</option>
-                                    <option value="s3">Measurement Specialites</option>
-                                    <option value="s4">RBR Solo</option>
-                                    <option value="s5">USGS homemade</option>
+                                <select id="sensorBrandSelect" style="width: 100%" multiple>
+                                    <!--<option value="v1">All</option>-->
+                                    <!--<option value="s1">HOBO</option>-->
+                                    <!--<option value="s2">Level Troll</option>-->
+                                    <!--<option value="s3">Measurement Specialites</option>-->
+                                    <!--<option value="s4">RBR Solo</option>-->
+                                    <!--<option value="s5">USGS homemade</option>-->
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" id="housingTypeForm">
                             <label for="housingTypeSelect" class="col-sm-2 control-label">Housing Type</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="housingTypeSelect">
-                                    <option value="v1">All</option>
-                                    <option value="s1">1 - Pre-Deployed Bracket</option>
-                                    <option value="s2">2 - Ruston Steel Pipe</option>
-                                    <option value="s3">3 - HIF Stainless Steel</option>
-                                    <option value="s4">4 - Tidal CSG</option>
-                                    <option value="s5">Quick Deploy RDG</option>
-                                    <option value="s6">Webcam</option>
+                                <select id="housingTypeSelect" style="width: 100%" multiple>
+                                    <!--<option value="v1">All</option>-->
+                                    <!--<option value="s1">1 - Pre-Deployed Bracket</option>-->
+                                    <!--<option value="s2">2 - Ruston Steel Pipe</option>-->
+                                    <!--<option value="s3">3 - HIF Stainless Steel</option>-->
+                                    <!--<option value="s4">4 - Tidal CSG</option>-->
+                                    <!--<option value="s5">Quick Deploy RDG</option>-->
+                                    <!--<option value="s6">Webcam</option>-->
                                 </select>
                             </div>
                         </div>
                         <div class="form-group" id="deployTypeForm">
                             <label for="deployTypeSelect"  class="col-sm-2 control-label">Deployment Type</label>
                             <div class="col-sm-10">
-                                <select class="form-control" id="deployTypeSelect">
-                                    <option value="all">All</option>
+                                <select id="deployTypeSelect" style="width: 100%" multiple>
+                                    <!--<option value="all">All</option>-->
                                     <!--<option value="s1">Air Temperature</option>-->
                                     <!--<option value="s2">Barometric Pressure</option>-->
                                     <!--<option value="s3">Humidity</option>-->

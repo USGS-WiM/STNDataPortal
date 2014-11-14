@@ -62,16 +62,19 @@
 
 .btn-primary {
     background-color: #F37A49;
-    border-color:#59595C ;
+    /*border-color:#59595C;*/
+    border-color: #7E7E84
     font-family: BryantRegular;
 }
 
 .btn-primary:hover {
-    background-color: #7E7E84;
+    background-color: #7E7E84 ;
+    border-color:#59595C;
 }
 
 .btn-primary.active{
-    background-color: #7E7E84
+    background-color: #7E7E84 ;
+    border-color:#59595C;
 }
 
 
