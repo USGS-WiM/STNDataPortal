@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>
-    </title>
+    <title>STN Flood Event Data Portal | USGS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -31,310 +30,699 @@
         </div>
     </div>
 </div>
-<div class="jumbotron">
-    <p>
-        Welcome to the Short-Term Network Flood Event Data Portal. Use the form
-        below to query the STN database and return results in your preferred format.&nbsp;
-    </p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="container col-md-6">
+            <div class="jumbotron">
+                <p>
+                    Welcome to the Short-Term Network Flood Event Data Portal. Use the forms
+                    below to query the STN database and return results in your preferred format.&nbsp;
+                </p>
+                <p>
+                    Begin by selecting event and location options. All fields are optional.
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="container col-xs-12 col-sm-12 col-md-8 col-lg-8">
+        <div class="container col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h1 class="panel-title">Events</h1>
+                    <h1 class="panel-title">Data Options</h1>
                 </div>
                 <div class="panel-body">
-                    <form class="form-inline" role="form">
-                        <div class="form-group col-lg-5" id="evtNameForm">
-                            <label for="evtSelect"  class="control-label">Name</label>
-                            <select id="evtSelect" style="width: 100%" multiple>
-                                <!--<option value="all">All</option>-->
-                                <!--<option value="irene">Hurricane Irene</option>-->
-                                <!--<option value="issac">Hurricane Issac</option>-->
-                                <!--<option value="paFlood">PA Flood 2013</option>-->
-                            </select>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4 class="formSectionHead">Event Options</h4>
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group" id="evtNameForm">
+                                    <label for="evtSelect"  class="col-sm-2 control-label">Event Name</label>
+                                    <div class="col-sm-10">
+                                        <select id="evtSelect" style="width: 100%" multiple>
+                                            <!--<option value="all">All</option>-->
+                                            <!--<option value="irene">Hurricane Irene</option>-->
+                                            <!--<option value="issac">Hurricane Issac</option>-->
+                                            <!--<option value="paFlood">PA Flood 2013</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="evtTypeForm">
+                                    <label for="evtTypeSelect" class="col-sm-2 control-label">Event Type</label>
+                                    <div class="col-sm-10">
+                                        <select id="evtTypeSelect" style="width: 100%" multiple></select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="evtStatusForm">
+                                    <label for="evtStatusRadios" class="col-sm-2 control-label">Event Status</label>
+                                    <div class="col-sm-10">
+                                        <div class="btn-group" data-toggle="buttons" id="evtStatusRadios">
+                                            <label class="btn btn-primary">
+                                                <input type="checkbox" name="active" id="op1">Active
+                                            </label>
+                                            <label class="btn btn-primary">
+                                                <input type="checkbox" name="complete" id="op2">Complete
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group col-lg-3" id="evtTypeForm">
-                            <label for="evtTypeSelect" class="control-label">Type</label>
-                            <select id="evtTypeSelect" style="width: 100%" multiple>
-                                <!--<option value="all">All</option>-->
-                                <!--<option value="drought">Drought</option>-->
-                                <!--<option value="hurricane">Hurricane</option>-->
-                                <!--<option value="riverineFlood">Riverine Flood</option>-->
-                            </select>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body" >
+                            <h4 class="formSectionHead">Location Options</h4>
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group" id="stateForm">
+                                    <label for="stateSelect" class="col-sm-2 control-label">State</label>
+                                    <div class="col-sm-10">
+                                        <select id="stateSelect" style="width: 100%" multiple>
+                                            <option value="al">Alabama</option>
+                                            <option value="fl">Florida</option>
+                                            <option value="ga">Georgia</option>
+                                            <option value="nj">New Jersey</option>
+                                            <option value="ny">New York</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="cntyForm">
+                                    <label for="cntySelect" class="col-sm-2 control-label">County</label>
+                                    <div class="col-sm-10">
+                                        <select id="cntySelect" style="width: 100%" multiple>
+                                            <option value="cnty4">Ann Arundel</option>
+                                            <option value="cnty3">Dane</option>
+                                            <option value="cnty2">Duval</option>
+                                            <option value="cnty1">Johnson</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group col-lg-3" id="evtStatusForm">
-                            <label for="evtStatusRadios" class="control-label">Status</label>
-                            <div class="btn-group" data-toggle="buttons" id="evtStatusRadios">
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="active" id="op1">Active
-                                </label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="complete" id="op2">Complete
-                                </label>
-                                <label class="btn btn-primary">
-                                    <input type="radio" name="complete" id="op3">All
-                                </label>
-                            </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body" >
+                            <h4 class="formSectionHead">Data Type Options</h4>
+                            <form class="form-horizontal" role="form" id="selectRadDiv">
+                                <div class="form-group" id="dataTypeForm">
+                                    <label for="selectionRadios" class="control-label col-sm-2" id="dataTypeFormLabel">Data type</label>
+                                    <div class="col-sm-10">
+                                        <div class="btn-group" data-toggle="buttons" id="selectionRadios">
+                                            <label class="btn btn-primary formSectionRad" id="sensorButton">
+                                                <input type="radio" name="dataOptions" value="sensor" id="sensorRad">Sensor Data
+                                            </label>
+                                            <label class="btn btn-primary formSectionRad" id="hwmButton">
+                                                <input type="radio" name="dataOptions" value="hwm" id="hwmRad">High-Water Mark Data
+                                            </label>
+                                            <label class="btn btn-primary formSectionRad" id="peakButton">
+                                                <input type="radio" name="dataOptions" value="peak" id="peakRad">Peak Summary Data
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form class="form-horizontal" role="form"  id="sensorForm" >
+                                <div class="form-group" id="sensorTypeForm">
+                                    <label for="sensorTypeSelect" class="col-sm-3 control-label">Sensor Type</label>
+                                    <div class="col-sm-9">
+                                        <select id="sensorTypeSelect" style="width: 100%" multiple></select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="statusForm">
+                                    <label for="statusSelect" class="col-sm-3 control-label">Status</label>
+                                    <div class="col-sm-9">
+                                        <select id="statusSelect" style="width: 100%" multiple></select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="collectionForm">
+                                    <label for="collectionSelect" class="col-sm-3 control-label">Collection Condition</label>
+                                    <div class="col-sm-9">
+                                        <select id="collectionSelect" style="width: 100%" multiple></select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="deployTypeForm">
+                                    <label for="deployTypeSelect"  class="col-sm-3 control-label">Deployment Type</label>
+                                    <div class="col-sm-9">
+                                        <select id="deployTypeSelect" style="width: 100%" multiple>
+                                            <!--<option value="all">All</option>-->
+                                            <!--<option value="s1">Air Temperature</option>-->
+                                            <!--<option value="s2">Barometric Pressure</option>-->
+                                            <!--<option value="s3">Humidity</option>-->
+                                            <!--<option value="s4">Temperature</option>-->
+                                            <!--<option value="s5">Water Level</option>-->
+                                            <!--<option value="s6">Water Temperature</option>-->
+                                            <!--<option value="value6">Wave Height</option>-->
+                                            <!--<option value="value7">Windspeed</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form class="form-horizontal" role="form"  id="hwmForm">
+                                <div class="form-group" id="hwmTypeForm">
+                                    <label for="hwmTypeSelect" class="col-sm-3 control-label">HWM Type</label>
+                                    <div class="col-sm-9">
+                                        <select id="hwmTypeSelect" style="width: 100%" multiple>
+                                            <!--<option value="v1">All</option>-->
+                                            <!--<option value="s1">Clear water</option>-->
+                                            <!--<option value="s2">Debris</option>-->
+                                            <!--<option value="s3">Melted snow line</option>-->
+                                            <!--<option value="s4">Mud</option>-->
+                                            <!--<option value="s5">Other</option>-->
+                                            <!--<option value="s6">Present at peak</option>-->
+                                            <!--<option value="value6">Seed line</option>-->
+                                            <!--<option value="value7">Stain line</option>-->
+                                            <!--<option value="value8">Vegetation line</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="qualityForm">
+                                    <label for="qualitySelect" class="col-sm-3 control-label">Quality</label>
+                                    <div class="col-sm-9">
+                                        <select id="qualitySelect" style="width: 100%" multiple>
+                                            <!--<option value="v1">All</option>-->
+                                            <!--<option value="s1">Unknown/Historical</option>-->
+                                            <!--<option value="s2">Excellent</option>-->
+                                            <!--<option value="s3">Good</option>-->
+                                            <!--<option value="s4">Fair</option>-->
+                                            <!--<option value="s5">Poor</option>-->
+                                            <!--<option value="s6">VP</option>-->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="envForm">
+                                    <label for="envRadios" class="col-sm-3 control-label">Environment</label>
+                                    <div class="col-sm-9">
+                                        <div class="btn-group" data-toggle="buttons" id="envRadios">
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="coastal" id="op1">Coastal
+                                            </label>
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="river" id="op2">Riverine
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="surveyedForm">
+                                    <label for="surveyedRadios" class="col-sm-3 control-label">Survey Completed</label>
+                                    <div class="col-sm-9">
+                                        <div class="btn-group" data-toggle="buttons" id="surveyedRadios">
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="yes" id="op1">Yes
+                                            </label>
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="no" id="op2">No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" id="stillwaterForm">
+                                    <label for="surveyedRadios" class="col-sm-3 control-label">Stillwater location</label>
+                                    <div class="col-sm-9">
+                                        <div class="btn-group" data-toggle="buttons" id="surveyedRadios">
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="yes" id="op1">Yes
+                                            </label>
+                                            <label class="btn btn-primary">
+                                                <input type="radio" name="no" id="op2">No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <form class="form-horizontal" role="form" id="peakForm">
+                                <div class="form-group" id="peakDateForm">
+                                    <label for="flagSurveyDatePicker" class="col-sm-3 control-label">Peak Date</label>
+                                    <div class="col-sm-9">
+                                        <div class="input-daterange input-group" id="flagSurveyDatePicker">
+                                            <input type="text" class="input-sm form-control" name="start" />
+                                            <span class="input-group-addon">to</span>
+                                            <input type="text" class="input-sm form-control" name="end" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1 class="panel-title">Location</h1>
-                </div>
-                <div class="panel-body">
-                    <form class="form-inline" role="form">
-                        <div class="form-group col-lg-3" id="stateForm">
-                            <label for="stateSelect" class="control-label">State</label>
-                            <select id="stateSelect" style="width: 100%" multiple>
-                                <option value="al">Alabama</option>
-                                <option value="fl">Florida</option>
-                                <option value="ga">Georgia</option>
-                                <option value="nj">New Jersey</option>
-                                <option value="ny">New York</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-3" id="cntyForm">
-                            <label for="cntySelect" class="control-label">County</label>
-                            <select id="cntySelect" style="width: 100%" multiple>
-                                <option value="cnty4">Ann Arundel</option>
-                                <option value="cnty3">Dane</option>
-                                <option value="cnty2">Duval</option>
-                                <option value="cnty1">Johnson</option>
-                            </select>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<hr>
-<div class="container-fluid">
+
+<!--////////////////////begin 3 accordian type panels/////////////////////////////////////////////////////////////////////////////////-->
+
+<!--<div class="container-fluid">-->
+    <!--<div class="row">-->
+        <!--<div class="container col-md-6">-->
+            <!--<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">-->
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">-->
+                        <!--<h4 class="panel-title">Sensors</h4>-->
+                    <!--</div>-->
+                    <!--<div id="collapseOne" class="panel-collapse collapse " role="tabpanel" aria-labelledby="headingOne">-->
+                        <!--<div class="panel-body">-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div class="form-group" id="sensorTypeForm">-->
+                                    <!--<label for="sensorTypeSelect" class="col-sm-2 control-label">Sensor Type</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="sensorTypeSelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="v1">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Meteorological Station</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Pressure Transducer</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Rain Gage</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Rapid Deployment Gage</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Thermometer</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">Webcam</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="statusForm">-->
+                                    <!--<label for="statusSelect" class="col-sm-2 control-label">Status</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="statusSelect" style="width: 100%" multiple></select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="collectionForm">-->
+                                    <!--<label for="collectionSelect" class="col-sm-2 control-label">Collection Condition</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="collectionSelect" style="width: 100%" multiple></select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="deployTypeForm">-->
+                                    <!--<label for="deployTypeSelect"  class="col-sm-2 control-label">Deployment Type</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="deployTypeSelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="all">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Air Temperature</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Barometric Pressure</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Humidity</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Temperature</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Water Level</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">Water Temperature</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value6">Wave Height</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value7">Windspeed</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-heading" role="tab" id="headingTwo" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">-->
+                        <!--<h4 class="panel-title">High-Water Marks</h4>-->
+                    <!--</div>-->
+                    <!--<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">-->
+                        <!--<div class="panel-body">-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div class="form-group" id="hwmTypeForm">-->
+                                    <!--<label for="hwmTypeSelect" class="col-sm-2 control-label">HWM Type</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="hwmTypeSelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="v1">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Clear water</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Debris</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Melted snow line</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Mud</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Other</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">Present at peak</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value6">Seed line</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value7">Stain line</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value8">Vegetation line</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="qualityForm">-->
+                                    <!--<label for="qualitySelect" class="col-sm-2 control-label">Quality</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="qualitySelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="v1">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Unknown/Historical</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Excellent</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Good</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Fair</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Poor</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">VP</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="envForm">-->
+                                    <!--<label for="envRadios" class="col-sm-2 control-label">Environment</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="envRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="coastal" id="op1">Coastal-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="river" id="op2">Riverine-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="surveyedForm">-->
+                                    <!--<label for="surveyedRadios" class="col-sm-2 control-label">Survey Completed</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="surveyedRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="yes" id="op1">Yes-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="no" id="op2">No-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="stillwaterForm">-->
+                                    <!--<label for="surveyedRadios" class="col-sm-2 control-label">Stillwater location</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="surveyedRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="yes" id="op1">Yes-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="no" id="op2">No-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="panel panel-default">-->
+                    <!--<div class="panel-heading" role="tab" id="headingThree" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">-->
+                        <!--<h4 class="panel-title">Peaks</h4>-->
+                    <!--</div>-->
+                    <!--<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">-->
+                        <!--<div class="panel-body">-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div class="form-group" id="peakDateForm">-->
+                                    <!--<label for="flagSurveyDatePicker" class="col-sm-2 control-label">Peak Date</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="input-daterange input-group" id="flagSurveyDatePicker">-->
+                                            <!--<input type="text" class="input-sm form-control" name="start" />-->
+                                            <!--<span class="input-group-addon">to</span>-->
+                                            <!--<input type="text" class="input-sm form-control" name="end" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash;experomenting here///////////////////////////////////////////////////////////////&ndash;&gt;-->
+
+<!--<div id="sensorHWMPeak" class="container-fluid">-->
+    <!--<div class="row">-->
+        <!--<div class="container col-md-6">-->
+
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">-->
+                    <!--<h1 class="panel-title">Data Options</h1>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+
+                    <!--<div id="selectRadDiv">-->
+                        <!--<label for="selectionRadios">Data type</label>-->
+                        <!--<div class="btn-group" data-toggle="buttons" id="selectionRadios">-->
+                            <!--<label class="btn btn-primary formSectionRad" id="sensorButton">-->
+                                <!--<input type="radio" name="dataOptions" value="sensor" id="sensorRad">Sensor Data-->
+                            <!--</label>-->
+                            <!--<label class="btn btn-primary formSectionRad" id="hwmButton">-->
+                                <!--<input type="radio" name="dataOptions" value="hwm" id="hwmRad">High-Water Mark Data-->
+                            <!--</label>-->
+                            <!--<label class="btn btn-primary formSectionRad" id="peakButton">-->
+                                <!--<input type="radio" name="dataOptions" value="peak" id="peakRad">Peak Summary Data-->
+                            <!--</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="panel panel-default" id="sensorForm">-->
+                        <!--<div class="panel-body" >-->
+                            <!--<h4>Sensor Options</h4>-->
+                            <!--<form class="form-horizontal" role="form" >-->
+                                <!--<div class="form-group" id="sensorTypeForm">-->
+                                    <!--<label for="sensorTypeSelect" class="col-sm-2 control-label">Sensor Type</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="sensorTypeSelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="v1">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Meteorological Station</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Pressure Transducer</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Rain Gage</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Rapid Deployment Gage</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Thermometer</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">Webcam</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="statusForm">-->
+                                    <!--<label for="statusSelect" class="col-sm-2 control-label">Status</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="statusSelect" style="width: 100%" multiple></select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="collectionForm">-->
+                                    <!--<label for="collectionSelect" class="col-sm-2 control-label">Collection Condition</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="collectionSelect" style="width: 100%" multiple></select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="deployTypeForm">-->
+                                    <!--<label for="deployTypeSelect"  class="col-sm-2 control-label">Deployment Type</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="deployTypeSelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="all">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Air Temperature</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Barometric Pressure</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Humidity</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Temperature</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Water Level</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">Water Temperature</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value6">Wave Height</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value7">Windspeed</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                            <!--<hr>-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div id="formatForm" class="form-group">-->
+                                    <!--<label for="formatRadios" class="control-label col-sm-2">Data Format</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="formatRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="csv" id="op1">-->
+                                                <!--Comma-separated (.csv)-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="tsv" id="op2">-->
+                                                <!--Tab-separated (.tsv)-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div id="form-action">-->
+                                    <!--<button id="main-button" class="btn" type="submit"><span id="dwnLd" class="glyphicon glyphicon-download"></span>  DOWNLOAD</button>-->
+                                <!--</div>-->
+                            <!--</form>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="panel panel-default" id="hwmForm">-->
+                        <!--<div class="panel-body" >-->
+                            <!--<h4>High-Water Mark Options</h4>-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div class="form-group" id="hwmTypeForm">-->
+                                    <!--<label for="hwmTypeSelect" class="col-sm-2 control-label">HWM Type</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="hwmTypeSelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="v1">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Clear water</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Debris</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Melted snow line</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Mud</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Other</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">Present at peak</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value6">Seed line</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value7">Stain line</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="value8">Vegetation line</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="qualityForm">-->
+                                    <!--<label for="qualitySelect" class="col-sm-2 control-label">Quality</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<select id="qualitySelect" style="width: 100%" multiple>-->
+                                            <!--&lt;!&ndash;<option value="v1">All</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s1">Unknown/Historical</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s2">Excellent</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s3">Good</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s4">Fair</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s5">Poor</option>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<option value="s6">VP</option>&ndash;&gt;-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="envForm">-->
+                                    <!--<label for="envRadios" class="col-sm-2 control-label">Environment</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="envRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="coastal" id="op1">Coastal-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="river" id="op2">Riverine-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="surveyedForm">-->
+                                    <!--<label for="surveyedRadios" class="col-sm-2 control-label">Survey Completed</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="surveyedRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="yes" id="op1">Yes-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="no" id="op2">No-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group" id="stillwaterForm">-->
+                                    <!--<label for="surveyedRadios" class="col-sm-2 control-label">Stillwater location</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="surveyedRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="yes" id="op1">Yes-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="no" id="op2">No-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</form>-->
+
+                            <!--<hr>-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div id="formatForm" class="form-group">-->
+                                    <!--<label for="formatRadios" class="control-label col-sm-2">Data Format</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="formatRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="csv" id="op1">-->
+                                                <!--Comma-separated (.csv)-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="tsv" id="op2">-->
+                                                <!--Tab-separated (.tsv)-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div id="form-action">-->
+                                    <!--<button id="main-button" class="btn" type="submit"><span id="dwnLd" class="glyphicon glyphicon-download"></span>  DOWNLOAD</button>-->
+                                <!--</div>-->
+                            <!--</form>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="panel panel-default" id="peakForm">-->
+                        <!--<div class="panel-body" >-->
+                            <!--<h4>Peak Summary Options</h4>-->
+                            <!--<form class="form-horizontal" role="form" >-->
+                                <!--<div class="form-group" id="peakDateForm">-->
+                                    <!--<label for="flagSurveyDatePicker" class="col-sm-2 control-label">Peak Date</label>-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="input-daterange input-group" id="flagSurveyDatePicker">-->
+                                            <!--<input type="text" class="input-sm form-control" name="start" />-->
+                                            <!--<span class="input-group-addon">to</span>-->
+                                            <!--<input type="text" class="input-sm form-control" name="end" />-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</form>-->
+
+                            <!--<hr>-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div id="formatForm" class="form-group">-->
+                                    <!--<h4>Data Format Options</h4>-->
+                                    <!--&lt;!&ndash;<label for="formatRadios" class="col-sm-2 control-label">Data Format</label>&ndash;&gt;-->
+                                    <!--<div class="col-sm-10">-->
+                                        <!--<div class="btn-group" data-toggle="buttons" id="formatRadios">-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="csv" id="op1">-->
+                                                <!--Comma-separated (.csv)-->
+                                            <!--</label>-->
+                                            <!--<label class="btn btn-primary">-->
+                                                <!--<input type="radio" name="tsv" id="op2">-->
+                                                <!--Tab-separated (.tsv)-->
+                                            <!--</label>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div id="form-action">-->
+                                    <!--<button id="main-button" class="btn" type="submit"><span id="dwnLd" class="glyphicon glyphicon-download"></span>  DOWNLOAD</button>-->
+                                <!--</div>-->
+                            <!--</form>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="panel panel-default" id="downloadBox">-->
+                        <!--<div class="panel-body">-->
+                            <!--<form class="form-horizontal" role="form">-->
+                                <!--<div id="formatForm" class="form-group">-->
+                                    <!--<label for="formatRadios" class="control-label">Data Format</label>-->
+                                    <!--<div class="btn-group" data-toggle="buttons" id="formatRadios">-->
+                                        <!--<label class="btn btn-primary">-->
+                                            <!--<input type="radio" name="csv" id="op1">-->
+                                            <!--Comma-separated (.csv)-->
+                                        <!--</label>-->
+                                        <!--<label class="btn btn-primary">-->
+                                            <!--<input type="radio" name="tsv" id="op2">-->
+                                            <!--Tab-separated (.tsv)-->
+                                        <!--</label>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div id="form-action">-->
+                                    <!--<button id="main-button" class="btn" type="submit"><span id="dwnLd" class="glyphicon glyphicon-download"></span>  DOWNLOAD</button>-->
+                                <!--</div>-->
+                            <!--</form>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+
+
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+<!--experimenting here (above///////////////////////////////////////////////////////////////////////////////////////-->
+
+
+<div id="sensorHWMPeak" class="container-fluid">
     <div class="row">
         <div class="container col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1 class="panel-title">High-Water Marks</h1>
-                </div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group" id="waterBodyForm">
-                            <label for="waterbodySelect" class="col-sm-2 control-label">Waterbody</label>
-                            <div class="col-sm-10">
-                                <select id="waterbodySelect" style="width: 100%" multiple>
-                                    <option value="v1">All</option>
-                                    <option value="s1">Johnson Creek</option>
-                                    <option value="s2">Lake Tonia</option>
-                                    <option value="s3">Myers Creek</option>
-                                    <option value="s4">Bruce River</option>
-                                    <option value="s5">Gary Creek</option>
-                                    <option value="s6">Chesapeake Bay</option>
-                                    <option value="value6">Atlantic Ocean</option>
-                                    <option value="value7">Mystic River</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="hwmTypeForm">
-                            <label for="hwmTypeSelect" class="col-sm-2 control-label">HWM Type</label>
-                            <div class="col-sm-10">
-                                <select id="hwmTypeSelect" style="width: 100%" multiple>
-                                    <!--<option value="v1">All</option>-->
-                                    <!--<option value="s1">Clear water</option>-->
-                                    <!--<option value="s2">Debris</option>-->
-                                    <!--<option value="s3">Melted snow line</option>-->
-                                    <!--<option value="s4">Mud</option>-->
-                                    <!--<option value="s5">Other</option>-->
-                                    <!--<option value="s6">Present at peak</option>-->
-                                    <!--<option value="value6">Seed line</option>-->
-                                    <!--<option value="value7">Stain line</option>-->
-                                    <!--<option value="value8">Vegetation line</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="envForm">
-                            <label for="envRadios" class="col-sm-2 control-label">Environment</label>
-                            <div class="col-sm-10">
-                                <div class="btn-group" data-toggle="buttons" id="envRadios">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="coastal" id="op1">Coastal
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="river" id="op2">Riverine
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" id="qualityForm">
-                            <label for="qualitySelect" class="col-sm-2 control-label">Quality</label>
-                            <div class="col-sm-10">
-                                <select id="qualitySelect" style="width: 100%" multiple>
-                                    <!--<option value="v1">All</option>-->
-                                    <!--<option value="s1">Unknown/Historical</option>-->
-                                    <!--<option value="s2">Excellent</option>-->
-                                    <!--<option value="s3">Good</option>-->
-                                    <!--<option value="s4">Fair</option>-->
-                                    <!--<option value="s5">Poor</option>-->
-                                    <!--<option value="s6">VP</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="flagSurveyDateForm">
-                            <label for="flagSurveyDatePicker" class="col-sm-2 control-label">Flagged/Surveyed Date</label>
-                            <div class="col-sm-10">
-                                <div class="input-daterange input-group" id="flagSurveyDatePicker">
-                                    <input type="text" class="input-sm form-control" name="start" />
-                                    <span class="input-group-addon">to</span>
-                                    <input type="text" class="input-sm form-control" name="end" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group" id="collectMethodForm">
-                            <label for="collectMethodSelect" class="col-sm-2 control-label">Collection Method</label>
-                            <div class="col-sm-10">
-                                <select id="collectMethodSelect" style="width: 100%" multiple>
-                                    <!--<option value="v1">All</option>-->
-                                    <!--<option value="s1">Handheld GPS</option>-->
-                                    <!--<option value="s2">Static-GNSS</option>-->
-                                    <!--<option value="s3">Phone/Car GPS</option>-->
-                                    <!--<option value="s4">Map (digital or paper)</option>-->
-                                    <!--<option value="s5">Other</option>-->
-                                    <!--<option value="s6">RT-GNSS</option>-->
-                                    <!--<option value="value6">Seed line</option>-->
-                                    <!--<option value="value7">Stain line</option>-->
-                                    <!--<option value="value8">Vegetation line</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="vertCollectForm">
-                            <label for="vertCollectSelect" class="col-sm-2 control-label">Vertical Collection Method</label>
-                            <div class="col-sm-10">
-                                <select id="vertCollectSelect" style="width: 100%" multiple>
-                                    <!--<option value="v1">All</option>-->
-                                    <!--<option value="s1">Tape Measure</option>-->
-                                    <!--<option value="s2">Level Gun</option>-->
-                                    <!--<option value="s3">Hand Level</option>-->
-                                    <!--<option value="s4">Other</option>-->
-                                    <!--<option value="s5">Static-GNSS</option>-->
-                                    <!--<option value="s6">Total Station</option>-->
-                                    <!--<option value="value6">RT-GNSS</option>-->
-                                    <!--<option value="value7">Stain line</option>-->
-                                    <!--<option value="value8">Vegetation line</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="surveyedForm">
-                            <label for="surveyedRadios" class="col-sm-2 control-label">Has surveyed elevation</label>
-                            <div class="col-sm-10">
-                                <div class="btn-group" data-toggle="buttons" id="surveyedRadios">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="yes" id="op1">Yes
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="no" id="op2">No
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
-        <div class="container col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h1 class="panel-title">Sensors</h1>
-                </div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <div class="form-group" id="sensorTypeForm">
-                            <label for="sensorTypeSelect" class="col-sm-2 control-label">Sensor Type</label>
-                            <div class="col-sm-10">
-                                <select id="sensorTypeSelect" style="width: 100%" multiple>
-                                    <!--<option value="v1">All</option>-->
-                                    <!--<option value="s1">Meteorological Station</option>-->
-                                    <!--<option value="s2">Pressure Transducer</option>-->
-                                    <!--<option value="s3">Rain Gage</option>-->
-                                    <!--<option value="s4">Rapid Deployment Gage</option>-->
-                                    <!--<option value="s5">Thermometer</option>-->
-                                    <!--<option value="s6">Webcam</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="sensorBrandForm">
-                            <label for="sensorBrandSelect" class="col-sm-2 control-label">Sensor Brand</label>
-                            <div class="col-sm-10">
-                                <select id="sensorBrandSelect" style="width: 100%" multiple>
-                                    <!--<option value="v1">All</option>-->
-                                    <!--<option value="s1">HOBO</option>-->
-                                    <!--<option value="s2">Level Troll</option>-->
-                                    <!--<option value="s3">Measurement Specialites</option>-->
-                                    <!--<option value="s4">RBR Solo</option>-->
-                                    <!--<option value="s5">USGS homemade</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="housingTypeForm">
-                            <label for="housingTypeSelect" class="col-sm-2 control-label">Housing Type</label>
-                            <div class="col-sm-10">
-                                <select id="housingTypeSelect" style="width: 100%" multiple>
-                                    <!--<option value="v1">All</option>-->
-                                    <!--<option value="s1">1 - Pre-Deployed Bracket</option>-->
-                                    <!--<option value="s2">2 - Ruston Steel Pipe</option>-->
-                                    <!--<option value="s3">3 - HIF Stainless Steel</option>-->
-                                    <!--<option value="s4">4 - Tidal CSG</option>-->
-                                    <!--<option value="s5">Quick Deploy RDG</option>-->
-                                    <!--<option value="s6">Webcam</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="deployTypeForm">
-                            <label for="deployTypeSelect"  class="col-sm-2 control-label">Deployment Type</label>
-                            <div class="col-sm-10">
-                                <select id="deployTypeSelect" style="width: 100%" multiple>
-                                    <!--<option value="all">All</option>-->
-                                    <!--<option value="s1">Air Temperature</option>-->
-                                    <!--<option value="s2">Barometric Pressure</option>-->
-                                    <!--<option value="s3">Humidity</option>-->
-                                    <!--<option value="s4">Temperature</option>-->
-                                    <!--<option value="s5">Water Level</option>-->
-                                    <!--<option value="s6">Water Temperature</option>-->
-                                    <!--<option value="value6">Wave Height</option>-->
-                                    <!--<option value="value7">Windspeed</option>-->
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group" id="tapedownForm">
-                            <label for="tapedownRadios" class="col-sm-2 control-label">Has tapedown information</label>
-                            <div class="col-sm-10">
-                                <div class="btn-group" data-toggle="buttons" id="tapedownRadios">
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="yes" id="op1">Yes
-                                    </label>
-                                    <label class="btn btn-primary">
-                                        <input type="radio" name="no" id="op2">No
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-<hr>
-<div class="container-fluid">
-    <div class="row">
-        <div class="container col-md-6">
             <div class="panel panel-default" id="downloadBox">
                 <div class="panel-heading">
-                    <h1 class="panel-title">Get Data</h1>
+                <h1 class="panel-title">Get Data</h1>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form">
@@ -342,16 +730,12 @@
                             <label for="formatRadios" class="control-label">Data Format</label>
                             <div class="btn-group" data-toggle="buttons" id="formatRadios">
                                 <label class="btn btn-primary">
-                                <input type="radio" name="csv" id="op1">
-                                Comma-separated (.csv)
+                                    <input type="radio" name="csv" id="op1">
+                                    Comma-separated (.csv)
                                 </label>
                                 <label class="btn btn-primary">
-                                <input type="radio" name="tsv" id="op2">
-                                Tab-separated (.tsv)
-                                </label>
-                                <label class="btn btn-primary">
-                                <input type="radio" name="tsv" id="excel">
-                                MS Excel
+                                    <input type="radio" name="tsv" id="op2">
+                                    Tab-separated (.tsv)
                                 </label>
                             </div>
                         </div>
@@ -364,6 +748,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 

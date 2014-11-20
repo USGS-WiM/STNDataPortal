@@ -1,7 +1,47 @@
 /**
  * Created by bdraper on 11/10/2014.
  */
+
 $(document).ready(function () {
+
+    //$('#sensorButton').on('click', function (){
+    //    $('#sensorPanelContainer').toggleClass( "hidden" );
+    //});
+    //
+    //$('#hwmButton').on('click', function (){
+    //    $('#hwmPanelContainer').toggleClass( "hidden" );
+    //});
+    //
+    //$('#peakButton').on('click', function (){
+    //    $('#peakPanelContainer').toggleClass( "hidden" );
+    //});
+
+    var sensorForm = document.getElementById("sensorForm");
+    var hwmForm = document.getElementById("hwmForm");
+    var peakForm = document.getElementById("peakForm");
+    sensorForm.style.display = 'none';
+    hwmForm.style.display = 'none';
+    peakForm.style.display = 'none';
+    var formSectionRadios = $('.formSectionRad');
+    for (var i =0; i < formSectionRadios.length; i++) {
+
+        formSectionRadios[i].onclick = function () {
+            var val = this.id;
+            if (val == 'sensorButton') {
+                sensorForm.style.display = 'block';
+                hwmForm.style.display = 'none';
+                peakForm.style.display = 'none';
+            } else if(val == 'hwmButton'){
+                sensorForm.style.display = 'none';
+                hwmForm.style.display = 'block';
+                peakForm.style.display = 'none';
+            } else if (val == 'peakButton'){
+                sensorForm.style.display = 'none';
+                hwmForm.style.display = 'none';
+                peakForm.style.display = 'block';
+            }
+        }
+    }
 
     $('#stateSelect').select2({
         placeholder: "All States"
@@ -12,7 +52,6 @@ $(document).ready(function () {
     $('#waterbodySelect').select2({
         placeholder: "All Waterbodies"
     });
-
     $('#evtSelect').select2({
         placeholder: "All Events"
     });
@@ -110,54 +149,6 @@ $(document).ready(function () {
         }
     });
 
-    $('#collectMethodSelect').select2({
-        placeholder: "All HWM Collection Methods"
-    });
-    $.ajax({
-        dataType: 'xml',
-        type: 'GET',
-        url: 'http://107.20.206.65/STNServices/horizontalmethods',
-        headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var collectMethodArray = [];
-            $(xml).find('HORIZONTAL_COLLECT_METHODS').each(function () {
-                var collectMethod = $(this).find('HCOLLECT_METHOD').text();
-                collectMethodArray.push(collectMethod);
-            });
-            var sortedList = collectMethodArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#collectMethodSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
-            }
-        },
-        error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
-        }
-    });
-
-    $('#vertCollectSelect').select2({
-        placeholder: "All Vertical Collection Methods"
-    });
-    $.ajax({
-        dataType: 'xml',
-        type: 'GET',
-        url: 'http://107.20.206.65/STNServices/verticalmethods',
-        headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var vertCollectArray = [];
-            $(xml).find('VERTICAL_COLLECT_METHODS').each(function () {
-                var vertCollect = $(this).find('VCOLLECT_METHOD').text();
-                vertCollectArray.push(vertCollect);
-            });
-            var sortedList = vertCollectArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#vertCollectSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
-            }
-        },
-        error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
-        }
-    });
-
     $('#sensorTypeSelect').select2({
         placeholder: "All Sensor Types"
     });
@@ -182,23 +173,23 @@ $(document).ready(function () {
         }
     });
 
-    $('#sensorBrandSelect').select2({
-        placeholder: "All Sensor Brands"
+    $('#statusSelect').select2({
+        placeholder: "All Statuses"
     });
     $.ajax({
         dataType: 'xml',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/sensorbrands',
+        url: 'http://107.20.206.65/STNServices/statustypes',
         headers: {'Accept': '*/*'},
         success: function (xml) {
-            var sensorBrandArray = [];
-            $(xml).find('SENSOR_BRAND').each(function () {
-                var sensorBrand = $(this).find('BRAND_NAME').text();
-                sensorBrandArray.push(sensorBrand);
+            var statusArray = [];
+            $(xml).find('STATUS_TYPE').each(function () {
+                var status = $(this).find('STATUS').text();
+                statusArray.push(status);
             });
-            var sortedList = sensorBrandArray.sort();
+            var sortedList = statusArray.sort();
             for (var i=0; i<sortedList.length; i++){
-                $('#sensorBrandSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+                $('#statusSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
             }
         },
         error: function (error) {
@@ -206,23 +197,23 @@ $(document).ready(function () {
         }
     });
 
-    $('#housingTypeSelect').select2({
-        placeholder: "All Housing Types"
+    $('#collectionSelect').select2({
+        placeholder: "All Collection Conditions"
     });
     $.ajax({
         dataType: 'xml',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/housingtypes',
+        url: 'http://107.20.206.65/STNServices/InstrCollectConditions',
         headers: {'Accept': '*/*'},
         success: function (xml) {
-            var housingTypeArray = [];
-            $(xml).find('HOUSING_TYPE').each(function () {
-                var housingType = $(this).find('TYPE_NAME').text();
-                housingTypeArray.push(housingType);
+            var collectionArray = [];
+            $(xml).find('INSTR_COLLECTION_CONDITIONS').each(function () {
+                var collectionType = $(this).find('CONDITION').text();
+                collectionArray.push(collectionType);
             });
-            var sortedList = housingTypeArray.sort();
+            var sortedList = collectionArray.sort();
             for (var i=0; i<sortedList.length; i++){
-                $('#housingTypeSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+                $('#collectionSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
             }
         },
         error: function (error) {

@@ -96,5 +96,23 @@
 }
 
 .control-label{
+    font-family: BryantRegular;
+}
+
+
+#selectRadDiv {
+    margin-bottom: 1em;
+}
+
+.formSectionHead {
+    font-family: BryantBold;
+    color:grey;
+}
+
+#selectRadDiv{
+    margin-bottom: 2em;
+}
+
+#dataTypeFormLabel{
     font-family: BryantBold;
 }
