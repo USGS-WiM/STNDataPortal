@@ -4,44 +4,23 @@
 
 $(document).ready(function () {
 
-    //$('#sensorButton').on('click', function (){
-    //    $('#sensorPanelContainer').toggleClass( "hidden" );
-    //});
-    //
-    //$('#hwmButton').on('click', function (){
-    //    $('#hwmPanelContainer').toggleClass( "hidden" );
-    //});
-    //
-    //$('#peakButton').on('click', function (){
-    //    $('#peakPanelContainer').toggleClass( "hidden" );
-    //});
+    $('.dataTypeRadio').each(function(){
+        //for the clicked radio
+        $(this).on('click', function() {
+            var radioId = $(this).attr('id');
+            var formToShow = $('#' + radioId + 'Form');
+            formToShow.show();
+            $('.formsClass').not(formToShow).hide();
+        });
+    });
 
-    var sensorForm = document.getElementById("sensorForm");
-    var hwmForm = document.getElementById("hwmForm");
-    var peakForm = document.getElementById("peakForm");
-    sensorForm.style.display = 'none';
-    hwmForm.style.display = 'none';
-    peakForm.style.display = 'none';
-    var formSectionRadios = $('.formSectionRad');
-    for (var i =0; i < formSectionRadios.length; i++) {
-
-        formSectionRadios[i].onclick = function () {
-            var val = this.id;
-            if (val == 'sensorButton') {
-                sensorForm.style.display = 'block';
-                hwmForm.style.display = 'none';
-                peakForm.style.display = 'none';
-            } else if(val == 'hwmButton'){
-                sensorForm.style.display = 'none';
-                hwmForm.style.display = 'block';
-                peakForm.style.display = 'none';
-            } else if (val == 'peakButton'){
-                sensorForm.style.display = 'none';
-                hwmForm.style.display = 'none';
-                peakForm.style.display = 'block';
-            }
-        }
-    }
+    //following 6 lines are experimental, for displaying a check glyph when check button is active. related to the <span> on lines 77 and 80 of the markup.
+    //$('.check').on('click', function(){
+    //
+    //    //$('.selected').toggle();
+    //    $('.check').find('span').toggle();
+    //
+    //});
 
     $('#stateSelect').select2({
         placeholder: "All States"
@@ -99,7 +78,6 @@ $(document).ready(function () {
             console.log("Error processing the XML. The error is:" + error);
         }
     });
-
 
     $('#hwmTypeSelect').select2({
         placeholder: "All HWM Types"
@@ -244,9 +222,6 @@ $(document).ready(function () {
             console.log("Error processing the XML. The error is:" + error);
         }
     });
-
-
-
 
 });
 
