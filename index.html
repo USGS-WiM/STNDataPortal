@@ -18,6 +18,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 <script src="js/select2.js" type="application/javascript"></script>
+<script src="js/bootstrap-datepicker.js" type="application/javascript"></script>
 <script src="js/STNDataPortal.js" type="application/javascript"></script>
 
 <div class="navbar" id="titleBar">
@@ -32,11 +33,11 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="container col-md-6">
+        <div class="container col-md-8">
             <div class="jumbotron">
                 <p>
                     Welcome to the Short-Term Network Flood Event Data Portal. Use the forms
-                    below to query the STN database and return results in your preferred format.&nbsp;
+                    below to query the <abbr title="Short-Term Network" class="initialism">STN</abbr> database and return results in your preferred format.&nbsp;
                 </p>
                 <p>
                     Begin by selecting event and location options. All fields are optional.
@@ -47,7 +48,7 @@
 </div>
 <div class="container-fluid">
     <div class="row">
-        <div class="container col-md-6">
+        <div class="container col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h1 class="panel-title">Data Options</h1>
@@ -180,11 +181,11 @@
                                     <label for="envRadios" class="col-sm-3 control-label">Environment</label>
                                     <div class="col-sm-9">
                                         <div class="btn-group" data-toggle="buttons" id="envRadios">
-                                            <label class="btn btn-primary">
-                                                <input type="checkbox" name="coastal" id="coastal">Coastal
+                                            <label class="btn btn-primary check">
+                                                <input type="checkbox" name="coastal" id="coastal">Coastal <span class="glyphicon glyphicon-ok selected" style="display: none"></span>
                                             </label>
-                                            <label class="btn btn-primary">
-                                                <input type="checkbox" name="river" id="riverine">Riverine
+                                            <label class="btn btn-primary check">
+                                                <input type="checkbox" name="river" id="riverine">Riverine <span class="glyphicon glyphicon-ok selected" style="display: none"></span>
                                             </label>
                                         </div>
                                     </div>
@@ -193,11 +194,11 @@
                                     <label for="surveyedRadios" class="col-sm-3 control-label">Survey Completed</label>
                                     <div class="col-sm-9">
                                         <div class="btn-group" data-toggle="buttons" id="surveyedRadios">
-                                            <label class="btn btn-primary">
-                                                <input type="checkbox" name="yes" id="surveyCompleteYes">Yes
+                                            <label class="btn btn-primary check">
+                                                <input type="checkbox" name="yes" id="surveyCompleteYes">Yes <span class="glyphicon glyphicon-ok selected" style="display: none"></span>
                                             </label>
-                                            <label class="btn btn-primary">
-                                                <input type="checkbox" name="no" id="surveyCompleteNo">No
+                                            <label class="btn btn-primary check">
+                                                <input type="checkbox" name="no" id="surveyCompleteNo">No <span class="glyphicon glyphicon-ok selected" style="display: none"></span>
                                             </label>
                                         </div>
                                     </div>
@@ -206,11 +207,11 @@
                                     <label for="stillWtrRadios" class="col-sm-3 control-label">Stillwater location</label>
                                     <div class="col-sm-9">
                                         <div class="btn-group" data-toggle="buttons" id="stillWtrRadios">
-                                            <label class="btn btn-primary">
-                                                <input type="checkbox" name="yes" id="stillWtrYes">Yes
+                                            <label class="btn btn-primary check">
+                                                <input type="checkbox" name="yes" id="stillWtrYes">Yes <span class="glyphicon glyphicon-ok selected" style="display: none"></span>
                                             </label>
-                                            <label class="btn btn-primary">
-                                                <input type="checkbox" name="no" id="stillWtrNo">No
+                                            <label class="btn btn-primary check">
+                                                <input type="checkbox" name="no" id="stillWtrNo">No <span class="glyphicon glyphicon-ok selected" style="display: none"></span>
                                             </label>
                                         </div>
                                     </div>
@@ -218,9 +219,9 @@
                             </form>
                             <form class="form-horizontal formsClass" role="form" id="peakForm">
                                 <div class="form-group" id="peakDateForm">
-                                    <label for="flagSurveyDatePicker" class="col-sm-3 control-label">Peak Date</label>
+                                    <label for="peakDatePicker" class="col-sm-3 control-label">Peak Date</label>
                                     <div class="col-sm-9">
-                                        <div class="input-daterange input-group" id="flagSurveyDatePicker">
+                                        <div class="input-daterange input-group" id="peakDatePicker">
                                             <input type="text" class="input-sm form-control" name="start" />
                                             <span class="input-group-addon">to</span>
                                             <input type="text" class="input-sm form-control" name="end" />
@@ -238,7 +239,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="container col-md-6">
+        <div class="container col-md-8">
             <div class="panel panel-default" id="downloadBox">
                 <div class="panel-heading">
                     <h1 class="panel-title">Get Data</h1>
