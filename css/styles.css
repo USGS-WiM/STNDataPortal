@@ -1,9 +1,9 @@
 /*#eventSelector, #evtTypeSelector, #evtStatusSelector, #cntySelector {*/
-    /*width:20em;*/
+/*width:20em;*/
 /*}*/
 
 /*#cntyForm {*/
-    /*margin-left:2em;*/
+/*margin-left:2em;*/
 /*}*/
 
 @font-face {
@@ -64,7 +64,7 @@
     background-color: #F37A49;
     /*border-color:#59595C;*/
     border-color: #7E7E84
-    font-family: BryantRegular;
+font-family: BryantRegular;
 }
 
 .btn-primary:hover {
@@ -75,6 +75,11 @@
 .btn-primary.active{
     background-color: #7E7E84 ;
     border-color:#59595C;
+}
+
+
+.btn-primary.disabled,.btn-primary.disabled.active {
+    background-color: #F8AF92;
 }
 
 
