@@ -131,7 +131,7 @@
                                 </div>
                             </form>
                             <form class="form-horizontal formsClass" role="form"  id="sensorForm" >
-                                <div class="form-group formsClass" id="sensorTypeForm">
+                                <div class="form-group" id="sensorTypeForm">
                                     <label for="sensorTypeSelect" class="col-sm-3 control-label">Sensor Type</label>
                                     <div class="col-sm-9">
                                         <select id="sensorTypeSelect" style="width: 100%" multiple></select>
@@ -214,9 +214,9 @@
                                     <label for="peakDatePicker" class="col-sm-3 control-label">Peak Date</label>
                                     <div class="col-sm-9">
                                         <div class="input-daterange input-group" id="peakDatePicker">
-                                            <input type="text" class="input-sm form-control" name="start" />
+                                            <input type="text" class="input-sm form-control" name="start" id="peakFromDate" />
                                             <span class="input-group-addon">to</span>
-                                            <input type="text" class="input-sm form-control" name="end" />
+                                            <input type="text" class="input-sm form-control" name="end" id="peakToDate" />
                                         </div>
                                     </div>
                                 </div>
@@ -261,9 +261,8 @@
                                     </div>
                                 </div>
                                 <div id="form-action">
-                                    <label for="formatRadios" class="control-label col-sm-2"></label>
                                     <div class="col-sm-10">
-                                        <button id="main-button" class="btn" type="submit"><span id="dwnLd" class="glyphicon glyphicon-download"></span>  DOWNLOAD</button>
+                                        <button id="downloadButton" class="btn" type="submit" data-downloading-text="DOWNLOADING..."><span id="dwnLd" class="glyphicon glyphicon-download"></span>  DOWNLOAD</button>
                                     </div>
                                 </div>
                             </form>

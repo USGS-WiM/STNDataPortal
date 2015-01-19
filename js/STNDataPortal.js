@@ -1,16 +1,18 @@
 /**
  * Created by bdraper on 11/10/2014.
  */
-
 ///services URLs set to test env: events, eventTypes, states
 var stnDataPortal = stnDataPortal || {
         data: {
             events: [],
             eventTypes: [],
             states: [],
-            counties : []
+            counties : [],
+            sensorStatusTypes : [],
+            sensorTypes : []
         }
     };
+
 $(document).ready(function () {
 
     $('.dataTypeRadio').each(function(){
@@ -50,6 +52,115 @@ $(document).ready(function () {
     $('#waterbodySelect').select2({
         placeholder: "All Waterbodies"
     });
+
+
+    $('#downloadButton').on("click", function () {
+        $(this).button('downloading');
+
+        //event type
+        var eventTypeSelections;
+        if ($('#evtTypeSelect').val() !== null){
+            var evtTypeSelectionsArray = $('#evtTypeSelect').val();
+            eventTypeSelections = evtTypeSelectionsArray.toString();
+        }
+        //event
+        var eventSelections;
+        if ($('#evtSelect').val() !== null){
+            var eventSelectionsArray = $('#evtSelect').val();
+            eventSelections = eventSelectionsArray.toString();
+        }
+        //event status: active
+        var eventStatusSelectionArray = [];
+        if ($("#active")[0].checked) {
+            eventStatusSelectionArray.push(1);
+        }
+        //event status: complete
+        if ($("#complete")[0].checked) {
+            eventStatusSelectionArray.push(2);
+        }
+        var eventStatusSelections =  eventStatusSelectionArray.toString();
+
+        //state
+        var stateSelections;
+
+        //county
+        var countySelections;
+
+
+        //SENSORS
+        //sensor status
+        var sensorStatusSelections;
+        if ($('#statusSelect').val() !== null ){
+            var sensorStatusSelectionArray = $('#statusSelect').val();
+            sensorStatusSelections = sensorStatusSelectionArray.toString();
+        }
+
+        //sensor collection condition
+        var collectConditionSelections;
+
+        //sensor deployment type
+        var deploymentTypeSelections;
+
+        //HWMs
+        //HWM types
+        var hwmTypeSelections;
+
+        //HWM quality
+        var hwmQualitySelections;
+
+        ////NOTE: need to find out hwm env type IDs
+        var hwmEnvSelectionArray = [];
+        //HWM environment: coastal
+        if ($("#coastal")[0].checked) {
+            hwmEnvSelectionArray.push();
+        }
+        //HWM environment: riverine
+        if ($("#active")[0].checked) {
+            hwmEnvSelectionArray.push();
+        }
+        var hwmEnvSelections = hwmEnvSelectionArray.toString();
+
+        //NOTE: need to find out expected values for HWM survey complete
+        //HWM survey status
+        var hwmSurveyStatusSelectionArray = [];
+        ///HWM survey status: complete
+        if ($("surveyCompleteYes")[0].checked) {
+            hwmSurveyStatusSelectionArray.push(true);
+        }
+        ///HWM survey status: not complete
+        if ($("#surveyCompleteNo")[0].checked) {
+            hwmSurveyStatusSelectionArray.push(false);
+        }
+        var hwmSurveyStatusSelections = hwmSurveyStatusSelectionArray.toString();
+
+        //NOTE: need to find out expected values for HWM stillwater
+        //HWM survey status
+        var hwmStillwaterStatusSelectionArray = [];
+        ///HWM survey status: complete
+        if ($("stillWtrYes")[0].checked) {
+            hwmStillwaterStatusSelectionArray.push(true);
+        }
+        ///HWM survey status: not complete
+        if ($("#stillWtrNo")[0].checked) {
+            hwmStillwaterStatusSelectionArray.push(false);
+        }
+        var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
+
+        //PEAKS
+        var peakFromDate;
+        if ($("#peakFromDate")[0].value !== ""){
+            peakFromDate = $("#peakFromDate")[0].value;
+        }
+        var peakToDate;
+        if ($("#peakToDate")[0].value !== "") {
+            peakToDate = $("#peakToDate")[0].value;
+        }
+
+
+        $(this).button('reset');
+    });
+
+
 
     var populateCountiesArray =  function  () {
 
@@ -307,48 +418,54 @@ $(document).ready(function () {
     $('#sensorTypeSelect').select2({
         placeholder: "All Sensor Types"
     });
+
     $.ajax({
-        dataType: 'xml',
+        dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/sensortypes',
+        url: 'http://107.20.206.65/STNTest/STNServices/sensortypes.json',
         headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var sensorTypeArray = [];
-            $(xml).find('SENSOR_TYPE').each(function () {
-                var sensorType = $(this).find('SENSOR').text();
-                sensorTypeArray.push(sensorType);
+        success: function (data) {
+            data.sort(function (a,b) {
+                var typeA = a.TYPE;
+                var typeB = b.TYPE;
+                if (typeA < typeB) {return -1}
+                if (typeA > typeB) {return 1}
+                else {return 0}
             });
-            var sortedList = sensorTypeArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#sensorTypeSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+            for (var i=0; i<data.length; i++){
+                $('#sensorTypeSelect').append("<option value='" + data[i].SENSOR_TYPE_ID + "'>" + data[i].SENSOR + "</option>");
+                stnDataPortal.data.sensorTypes.push(data[i]);
             }
         },
         error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
+            console.log("Error processing the JSON. The error is:" + error);
         }
     });
+
 
     $('#statusSelect').select2({
         placeholder: "All Statuses"
     });
     $.ajax({
-        dataType: 'xml',
+        dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/statustypes',
+        url: 'http://107.20.206.65/STNTest/STNServices/statustypes.json',
         headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var statusArray = [];
-            $(xml).find('STATUS_TYPE').each(function () {
-                var status = $(this).find('STATUS').text();
-                statusArray.push(status);
+        success: function (data) {
+            data.sort(function (a,b) {
+                var typeA = a.TYPE;
+                var typeB = b.TYPE;
+                if (typeA < typeB) {return -1}
+                if (typeA > typeB) {return 1}
+                else {return 0}
             });
-            var sortedList = statusArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#statusSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+            for (var i=0; i<data.length; i++){
+                $('#statusSelect').append("<option value='" + data[i].STATUS_TYPE_ID + "'>" + data[i].STATUS + "</option>");
+                stnDataPortal.data.sensorStatusTypes.push(data[i]);
             }
         },
         error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
+            console.log("Error processing the JSON. The error is:" + error);
         }
     });
 
