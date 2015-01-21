@@ -1,20 +1,21 @@
 /**
  * Created by bdraper on 11/10/2014.
  */
-///services URLs set to test env: events, eventTypes, states
 var stnDataPortal = stnDataPortal || {
         data: {
             events: [],
             eventTypes: [],
             states: [],
             counties : [],
+            sensorTypes : [],
             sensorStatusTypes : [],
-            sensorTypes : []
+            collectionConditions: [],
+            deploymentTypes : [],
+            hwmTypes: [],
+            hwmQualities : []
         }
     };
-
 $(document).ready(function () {
-
     $('.dataTypeRadio').each(function(){
         //for the clicked radio
         $(this).on('click', function() {
@@ -36,24 +37,9 @@ $(document).ready(function () {
         multidate: false,
         clearBtn: true
     });
-
-    $('#evtTypeSelect').select2({
-        placeholder: "All Types"
-    });
-    $('#evtSelect').select2({
-        placeholder: "All Events"
-    });
-    $('#stateSelect').select2({
-        placeholder: "All States"
-    });
-    $('#cntySelect').select2({
+    $('#countySelect').select2({
         placeholder: "All Counties"
     });
-    $('#waterbodySelect').select2({
-        placeholder: "All Waterbodies"
-    });
-
-
     $('#downloadButton').on("click", function () {
         $(this).button('downloading');
 
@@ -82,41 +68,64 @@ $(document).ready(function () {
 
         //state
         var stateSelections;
+        if ($('#stateSelect').val() !== null){
+            var stateSelectionsArray = $('#stateSelect').val();
+            stateSelections = stateSelectionsArray.toString();
+        }
 
         //county
         var countySelections;
-
+        if ($('#countySelect').val() !== null){
+            var countySelectionsArray = $('#countySelect').val();
+            countySelections = countySelectionsArray.toString();
+        }
 
         //SENSORS
         //sensor status
         var sensorStatusSelections;
-        if ($('#statusSelect').val() !== null ){
-            var sensorStatusSelectionArray = $('#statusSelect').val();
+        if ($('#sensorStatusSelect').val() !== null ){
+            var sensorStatusSelectionArray = $('#sensorStatusSelect').val();
             sensorStatusSelections = sensorStatusSelectionArray.toString();
         }
 
         //sensor collection condition
         var collectConditionSelections;
+        if ($('#collectionConditionSelect').val() !== null ){
+            var collectConditionSelectionArray = $('#collectionConditionSelect').val();
+            collectConditionSelections = collectConditionSelectionArray.toString();
+        }
 
         //sensor deployment type
         var deploymentTypeSelections;
+        if ($('#deployTypeSelect').val() !== null ){
+            var deploymentTypeSelectionArray = $('#deployTypeSelect').val();
+            deploymentTypeSelections = deploymentTypeSelectionArray.toString();
+        }
 
         //HWMs
         //HWM types
         var hwmTypeSelections;
+        if ($('#hwmTypeSelect').val() !== null ){
+            var hwmTypeSelectionArray = $('#hwmTypeSelect').val();
+            hwmTypeSelections = hwmTypeSelectionArray.toString();
+        }
 
         //HWM quality
         var hwmQualitySelections;
+        if ($('#hwmQualitySelect').val() !== null ){
+            var hwmQualitySelectionArray = $('#hwmQualitySelect').val();
+            hwmQualitySelections = hwmQualitySelectionArray.toString();
+        }
 
-        ////NOTE: need to find out hwm env type IDs
+        ////HWM environment
         var hwmEnvSelectionArray = [];
         //HWM environment: coastal
-        if ($("#coastal")[0].checked) {
-            hwmEnvSelectionArray.push();
+        if ($("#coastal")[0].checked && !($("#riverine")[0].checked)) {
+            hwmEnvSelectionArray.push("Coastal");
         }
         //HWM environment: riverine
-        if ($("#active")[0].checked) {
-            hwmEnvSelectionArray.push();
+        if ($("#riverine")[0].checked && !($("#coastal")[0].checked) ) {
+            hwmEnvSelectionArray.push("Riverine");
         }
         var hwmEnvSelections = hwmEnvSelectionArray.toString();
 
@@ -124,12 +133,12 @@ $(document).ready(function () {
         //HWM survey status
         var hwmSurveyStatusSelectionArray = [];
         ///HWM survey status: complete
-        if ($("surveyCompleteYes")[0].checked) {
-            hwmSurveyStatusSelectionArray.push(true);
+        if ($("#surveyCompleteYes")[0].checked && !($("#surveyCompleteNo")[0].checked)) {
+            hwmSurveyStatusSelectionArray.push("true");
         }
         ///HWM survey status: not complete
-        if ($("#surveyCompleteNo")[0].checked) {
-            hwmSurveyStatusSelectionArray.push(false);
+        if ($("#surveyCompleteNo")[0].checked && !($("#surveyCompleteYes")[0].checked)) {
+            hwmSurveyStatusSelectionArray.push("false");
         }
         var hwmSurveyStatusSelections = hwmSurveyStatusSelectionArray.toString();
 
@@ -137,12 +146,12 @@ $(document).ready(function () {
         //HWM survey status
         var hwmStillwaterStatusSelectionArray = [];
         ///HWM survey status: complete
-        if ($("stillWtrYes")[0].checked) {
-            hwmStillwaterStatusSelectionArray.push(true);
+        if ($("#stillWaterYes")[0].checked && !($("stillWaterNo")[0].checked)) {
+            hwmStillwaterStatusSelectionArray.push("true");
         }
         ///HWM survey status: not complete
-        if ($("#stillWtrNo")[0].checked) {
-            hwmStillwaterStatusSelectionArray.push(false);
+        if ($("#stillWaterNo")[0].checked  && !($("#stillWaterYes")[0].checked)) {
+            hwmStillwaterStatusSelectionArray.push("false");
         }
         var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
 
@@ -156,24 +165,19 @@ $(document).ready(function () {
             peakToDate = $("#peakToDate")[0].value;
         }
 
-
         $(this).button('reset');
     });
 
-
-
     var populateCountiesArray =  function  () {
-
         for (i=0; i<stnDataPortal.data.states.length; i++) {
-
             $.ajax({
                 dataType: 'json',
                 type: 'GET',
-                url: "http://107.20.206.65/STNTest/STNServices/StateCounties/" + stnDataPortal.data.states[i] + ".json",
+                url: "http://107.20.206.65/STNServices/Sites/CountiesByState.json?StateAbbrev=" + stnDataPortal.data.states[i].STATE_ABBREV ,
                 headers: {'Accept': '*/*'},
-                currentState: stnDataPortal.data.states[i],
+                currentState: stnDataPortal.data.states[i].STATE_ABBREV,
                 success: function (data)  {
-                    stnDataPortal.data.counties[String(this.currentState)] = data;
+                    stnDataPortal.data.counties[(this.currentState)] = data;
                 },
                 error: function (error) {
                     console.log("Error retrieving counties. The error is: ");
@@ -185,10 +189,14 @@ $(document).ready(function () {
         }, 300);
     };
 
+    //begin Event form ajax calls
+    $('#evtTypeSelect').select2({
+        placeholder: "All Types"
+    });
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNTest/STNServices/eventtypes.json',
+        url: 'http://107.20.206.65/STNServices/eventtypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -208,11 +216,13 @@ $(document).ready(function () {
             console.log("Error processing the JSON. The error is:" + error);
         }
     });
-
+    $('#evtSelect').select2({
+        placeholder: "All Events"
+    });
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNTest/STNServices/events.json',
+        url: 'http://107.20.206.65/STNServices/events.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -232,28 +242,26 @@ $(document).ready(function () {
             console.log("Error processing the JSON. The error is:" + error);
         }
     });
-
+    //end Event form ajax calls
+    //begin Location form ajax calls (county form populates from the populateCountiesArray function above)
+    $('#stateSelect').select2({
+        placeholder: "All States"
+    });
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNTest/STNServices/sitestates.json',
+        url: 'http://107.20.206.65/STNServices/Sites/States.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
-
-                if (a< b) {return -1}
-                if (a > b) {return 1}
+                var stateA = a.STATE_NAME;
+                var stateB = b.STATE_NAME;
+                if (stateA < stateB) {return -1}
+                if (stateA > stateB) {return 1}
                 else {return 0}
             });
-            var lookupStateName = function (stateID) {
-                if (usStatesByAbbreviation[stateID] === undefined)
-                {
-                    return "Unspecified";
-                }
-                return usStatesByAbbreviation[stateID];
-            };
             for (var i=0; i<data.length; i++){
-                $('#stateSelect').append("<option value='" + data[i] + "'>" + lookupStateName(data[i]) + "</option>");
+                $('#stateSelect').append("<option value='" + data[i].STATE_ABBREV + "'>" + data[i].STATE_NAME + "</option>");
                 data[i].id = data[i];
                 stnDataPortal.data.states.push(data[i]);
             }
@@ -263,7 +271,9 @@ $(document).ready(function () {
             console.log("Error processing the JSON. The error is:" + error);
         }
     });
+    //end Location form ajax calls
 
+    //begin onChange functions for Event form (these tie the event type and event forms together)
     $('#evtTypeSelect').on("change", function (selection){
         if (selection.val.length > 0) {
             var selectedEvtTypeIds = [];
@@ -285,7 +295,6 @@ $(document).ready(function () {
             }
         }
     });
-
     $('#evtSelect').on("change", function (selection){
         //check to see if there is any value selected
         if (!(selection.val.length > 0)) {
@@ -344,85 +353,87 @@ $(document).ready(function () {
         }
         return;
     });
+    //end onChange functions for Event form
 
+    //begin onChange function for state form (updates county options based on state selection)
     $('#stateSelect').on("change", function (statesSelected) {
         if (!(statesSelected.val.length > 0)) {
-            $('#cntySelect').html("");
-            $('#cntySelect').append("<option value=null>Please select state(s) first </option>");
+            $('#countySelect').html("");
+            $('#countySelect').append("<option value=null>Please select state(s) first </option>");
             return
         }
         var currentCounties = [];
         for (var key in stnDataPortal.data.counties){
+            for(var i=0; i<stnDataPortal.data.counties[key].length; i++ ){
 
-            var value = stnDataPortal.data.counties[key];
-            if (statesSelected.val.indexOf(key) > -1) {
-                currentCounties = currentCounties.concat(value);
+                var value = stnDataPortal.data.counties[key][i].COUNTY_NAME;
+                if (statesSelected.val.indexOf(key) > -1) {
+                    currentCounties = currentCounties.concat(value);
+                }
+
             }
+            //segment below is for when return from counties endpoint is an array of strings, rather than an array of objects.
+            //var value = stnDataPortal.data.counties[key];
+            //if (statesSelected.val.indexOf(key) > -1) {
+            //    currentCounties = currentCounties.concat(value);
+            //}
         }
-        $('#cntySelect').html("");
+        $('#countySelect').html("");
         for (var key in currentCounties) {
             var countyOption = currentCounties[key];
-            $('#cntySelect').append("<option value='" + countyOption + "'>" + countyOption + "</option>");
+            $('#countySelect').append("<option value='" + countyOption + "'>" + countyOption + "</option>");
         };
     });
-
-    ///"below the fold" inputs
+    //end onChange function for state form
+    ///Begin HWM form ajax calls
     $('#hwmTypeSelect').select2({
         placeholder: "All HWM Types"
     });
     $.ajax({
-        dataType: 'xml',
+        dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/hwmtypes',
+        url: 'http://107.20.206.65/STNServices/hwmtypes.json',
         headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var hwmTypeArray = [];
-            $(xml).find('HWM_TYPES').each(function () {
-                var hwmType = $(this).find('HWM_TYPE').text();
-                hwmTypeArray.push(hwmType);
-            });
-            var sortedList = hwmTypeArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#hwmTypeSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+        success: function (data) {
+            for (var i=0; i<data.length; i++){
+                $('#hwmTypeSelect').append("<option value='" + data[i].HWM_TYPE_ID + "'>" + data[i].HWM_TYPE + "</option>");
+                data[i].id = data[i].HWM_TYPE_ID;
+                stnDataPortal.data.hwmTypes.push(data[i]);
             }
         },
         error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
+            console.log("Error processing the JSON. The error is:" + error);
         }
     });
-
-    $('#qualitySelect').select2({
+    $('#hwmQualitySelect').select2({
         placeholder: "All HWM Qualities"
     });
     $.ajax({
-        dataType: 'xml',
+        dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/hwmqualities',
+        url: 'http://107.20.206.65/STNServices/hwmqualities.json',
         headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var qualityArray = [];
-            $(xml).find('HWM_QUALITIES').each(function () {
-                var quality = $(this).find('HWM_QUALITY').text();
-                qualityArray.push(quality);
-            });
-            var sortedList = qualityArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#qualitySelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+        success: function (data) {
+            for (var i=0; i<data.length; i++){
+                $('#hwmQualitySelect').append("<option value='" + data[i].HWM_QUALITY_ID + "'>" + data[i].HWM_QUALITY + "</option>");
+                data[i].id = data[i].HWM_QUALITY_ID;
+                stnDataPortal.data.hwmQualities.push(data[i]);
             }
         },
         error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
+            console.log("Error processing the JSON. The error is:" + error);
         }
     });
+    //end HWM form ajax calls
 
+    //Begin Sensor form ajax calls
     $('#sensorTypeSelect').select2({
         placeholder: "All Sensor Types"
     });
-
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNTest/STNServices/sensortypes.json',
+        url: 'http://107.20.206.65/STNServices/sensortypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -441,26 +452,17 @@ $(document).ready(function () {
             console.log("Error processing the JSON. The error is:" + error);
         }
     });
-
-
-    $('#statusSelect').select2({
+    $('#sensorStatusSelect').select2({
         placeholder: "All Statuses"
     });
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNTest/STNServices/statustypes.json',
+        url: 'http://107.20.206.65/STNServices/statustypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
-            data.sort(function (a,b) {
-                var typeA = a.TYPE;
-                var typeB = b.TYPE;
-                if (typeA < typeB) {return -1}
-                if (typeA > typeB) {return 1}
-                else {return 0}
-            });
             for (var i=0; i<data.length; i++){
-                $('#statusSelect').append("<option value='" + data[i].STATUS_TYPE_ID + "'>" + data[i].STATUS + "</option>");
+                $('#sensorStatusSelect').append("<option value='" + data[i].STATUS_TYPE_ID + "'>" + data[i].STATUS + "</option>");
                 stnDataPortal.data.sensorStatusTypes.push(data[i]);
             }
         },
@@ -468,53 +470,41 @@ $(document).ready(function () {
             console.log("Error processing the JSON. The error is:" + error);
         }
     });
-
-    $('#collectionSelect').select2({
+    $('#collectionConditionSelect').select2({
         placeholder: "All Collection Conditions"
     });
     $.ajax({
-        dataType: 'xml',
+        dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/InstrCollectConditions',
+        url: 'http://107.20.206.65/STNServices/InstrCollectConditions.json',
         headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var collectionArray = [];
-            $(xml).find('INSTR_COLLECTION_CONDITIONS').each(function () {
-                var collectionType = $(this).find('CONDITION').text();
-                collectionArray.push(collectionType);
-            });
-            var sortedList = collectionArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#collectionSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+        success: function (data) {
+            for (var i=0; i<data.length; i++){
+                $('#collectionConditionSelect').append("<option value='" + data[i].ID + "'>" + data[i].CONDITION + "</option>");
+                stnDataPortal.data.collectionConditions.push(data[i]);
             }
         },
         error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
+            console.log("Error processing the JSON. The error is:" + error);
         }
     });
-
     $('#deployTypeSelect').select2({
         placeholder: "All Deployment Types"
     });
     $.ajax({
-        dataType: 'xml',
+        dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/deploymenttypes',
+        url: 'http://107.20.206.65/STNServices/deploymenttypes.json',
         headers: {'Accept': '*/*'},
-        success: function (xml) {
-            var deployTypeArray = [];
-            $(xml).find('DEPLOYMENT_TYPE').each(function () {
-                var deployType = $(this).find('METHOD').text();
-                deployTypeArray.push(deployType);
-            });
-            var sortedList = deployTypeArray.sort();
-            for (var i=0; i<sortedList.length; i++){
-                $('#deployTypeSelect').append("<option value='" + sortedList[i] + "'>" + sortedList[i] + "</option>");
+        success: function (data) {
+            for (var i=0; i<data.length; i++){
+                $('#deployTypeSelect').append("<option value='" + data[i].DEPLOYMENT_TYPE_ID + "'>" + data[i].METHOD + "</option>");
+                stnDataPortal.data.deploymentTypes.push(data[i]);
             }
         },
         error: function (error) {
-            console.log("Error processing the XML. The error is:" + error);
+            console.log("Error processing the JSON. The error is:" + error);
         }
     });
-
+    //end Sensor form ajax calls
 });
