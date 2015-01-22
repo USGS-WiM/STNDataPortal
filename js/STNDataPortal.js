@@ -42,7 +42,6 @@ $(document).ready(function () {
     });
     $('#downloadButton').on("click", function () {
         $(this).button('downloading');
-
         //event type
         var eventTypeSelections;
         if ($('#evtTypeSelect').val() !== null){
@@ -55,24 +54,23 @@ $(document).ready(function () {
             var eventSelectionsArray = $('#evtSelect').val();
             eventSelections = eventSelectionsArray.toString();
         }
-        //event status: active
+        //event status
         var eventStatusSelectionArray = [];
-        if ($("#active")[0].checked) {
+        //event status: active
+        if ($("#active")[0].checked && !($("#complete")[0].checked) ) {
             eventStatusSelectionArray.push(1);
         }
         //event status: complete
-        if ($("#complete")[0].checked) {
+        if ($("#complete")[0].checked && !($("#active")[0].checked)) {
             eventStatusSelectionArray.push(2);
         }
         var eventStatusSelections =  eventStatusSelectionArray.toString();
-
         //state
         var stateSelections;
         if ($('#stateSelect').val() !== null){
             var stateSelectionsArray = $('#stateSelect').val();
             stateSelections = stateSelectionsArray.toString();
         }
-
         //county
         var countySelections;
         if ($('#countySelect').val() !== null){
@@ -80,7 +78,14 @@ $(document).ready(function () {
             countySelections = countySelectionsArray.toString();
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //SENSORS
+        //sensor type
+        var sensorTypeSelections;
+        if ($('#sensorTypeSelect').val() !== null ){
+            var sensorTypeSelectionArray = $('#sensorTypeSelect').val();
+            sensorTypeSelections = sensorTypeSelectionArray.toString();
+        }
         //sensor status
         var sensorStatusSelections;
         if ($('#sensorStatusSelect').val() !== null ){
@@ -102,6 +107,7 @@ $(document).ready(function () {
             deploymentTypeSelections = deploymentTypeSelectionArray.toString();
         }
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //HWMs
         //HWM types
         var hwmTypeSelections;
@@ -109,14 +115,12 @@ $(document).ready(function () {
             var hwmTypeSelectionArray = $('#hwmTypeSelect').val();
             hwmTypeSelections = hwmTypeSelectionArray.toString();
         }
-
         //HWM quality
         var hwmQualitySelections;
         if ($('#hwmQualitySelect').val() !== null ){
             var hwmQualitySelectionArray = $('#hwmQualitySelect').val();
             hwmQualitySelections = hwmQualitySelectionArray.toString();
         }
-
         ////HWM environment
         var hwmEnvSelectionArray = [];
         //HWM environment: coastal
@@ -128,8 +132,6 @@ $(document).ready(function () {
             hwmEnvSelectionArray.push("Riverine");
         }
         var hwmEnvSelections = hwmEnvSelectionArray.toString();
-
-        //NOTE: need to find out expected values for HWM survey complete
         //HWM survey status
         var hwmSurveyStatusSelectionArray = [];
         ///HWM survey status: complete
@@ -141,20 +143,19 @@ $(document).ready(function () {
             hwmSurveyStatusSelectionArray.push("false");
         }
         var hwmSurveyStatusSelections = hwmSurveyStatusSelectionArray.toString();
-
-        //NOTE: need to find out expected values for HWM stillwater
-        //HWM survey status
+        //HWM stillwater status
         var hwmStillwaterStatusSelectionArray = [];
-        ///HWM survey status: complete
-        if ($("#stillWaterYes")[0].checked && !($("stillWaterNo")[0].checked)) {
+        ///HWM stillwater status: yes
+        if ($("#stillWaterYes")[0].checked && !($("#stillWaterNo")[0].checked)) {
             hwmStillwaterStatusSelectionArray.push("true");
         }
-        ///HWM survey status: not complete
+        ///HWM stillwater status: no
         if ($("#stillWaterNo")[0].checked  && !($("#stillWaterYes")[0].checked)) {
             hwmStillwaterStatusSelectionArray.push("false");
         }
         var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //PEAKS
         var peakFromDate;
         if ($("#peakFromDate")[0].value !== ""){
