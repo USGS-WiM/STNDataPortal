@@ -64,6 +64,10 @@ $(document).ready(function () {
         if ($("#complete")[0].checked && !($("#active")[0].checked)) {
             eventStatusSelectionArray.push(2);
         }
+        if ($("#active")[0].checked && $("#complete")[0].checked || !($("#active")[0].checked) && !($("#complete")[0].checked)) {
+            eventStatusSelectionArray.push(0);
+        }
+
         var eventStatusSelections =  eventStatusSelectionArray.toString();
         //state
         var stateSelections;
@@ -80,92 +84,100 @@ $(document).ready(function () {
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //SENSORS
-        //sensor type
-        var sensorTypeSelections;
-        if ($('#sensorTypeSelect').val() !== null ){
-            var sensorTypeSelectionArray = $('#sensorTypeSelect').val();
-            sensorTypeSelections = sensorTypeSelectionArray.toString();
-        }
-        //sensor status
-        var sensorStatusSelections;
-        if ($('#sensorStatusSelect').val() !== null ){
-            var sensorStatusSelectionArray = $('#sensorStatusSelect').val();
-            sensorStatusSelections = sensorStatusSelectionArray.toString();
-        }
+        if ($("#sensorRad")[0].checked){
+            //sensor type
+            var sensorTypeSelections;
+            if ($('#sensorTypeSelect').val() !== null ){
+                var sensorTypeSelectionArray = $('#sensorTypeSelect').val();
+                sensorTypeSelections = sensorTypeSelectionArray.toString();
+            }
+            //sensor status
+            var sensorStatusSelections;
+            if ($('#sensorStatusSelect').val() !== null ){
+                var sensorStatusSelectionArray = $('#sensorStatusSelect').val();
+                sensorStatusSelections = sensorStatusSelectionArray.toString();
+            }
 
-        //sensor collection condition
-        var collectConditionSelections;
-        if ($('#collectionConditionSelect').val() !== null ){
-            var collectConditionSelectionArray = $('#collectionConditionSelect').val();
-            collectConditionSelections = collectConditionSelectionArray.toString();
-        }
+            //sensor collection condition
+            var collectConditionSelections;
+            if ($('#collectionConditionSelect').val() !== null ){
+                var collectConditionSelectionArray = $('#collectionConditionSelect').val();
+                collectConditionSelections = collectConditionSelectionArray.toString();
+            }
 
-        //sensor deployment type
-        var deploymentTypeSelections;
-        if ($('#deployTypeSelect').val() !== null ){
-            var deploymentTypeSelectionArray = $('#deployTypeSelect').val();
-            deploymentTypeSelections = deploymentTypeSelectionArray.toString();
-        }
+            //sensor deployment type
+            var deploymentTypeSelections;
+            if ($('#deployTypeSelect').val() !== null ){
+                var deploymentTypeSelectionArray = $('#deployTypeSelect').val();
+                deploymentTypeSelections = deploymentTypeSelectionArray.toString();
+            }
 
+
+            var sensorsQueryURL = "http://107.20.206.65/STNServices/Instruments?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelections + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
+
+            console.log(sensorsQueryURL);
+        }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //HWMs
-        //HWM types
-        var hwmTypeSelections;
-        if ($('#hwmTypeSelect').val() !== null ){
-            var hwmTypeSelectionArray = $('#hwmTypeSelect').val();
-            hwmTypeSelections = hwmTypeSelectionArray.toString();
+        if ($("#hwmRad")[0].checked) {
+            //HWM types
+            var hwmTypeSelections;
+            if ($('#hwmTypeSelect').val() !== null ){
+                var hwmTypeSelectionArray = $('#hwmTypeSelect').val();
+                hwmTypeSelections = hwmTypeSelectionArray.toString();
+            }
+            //HWM quality
+            var hwmQualitySelections;
+            if ($('#hwmQualitySelect').val() !== null ){
+                var hwmQualitySelectionArray = $('#hwmQualitySelect').val();
+                hwmQualitySelections = hwmQualitySelectionArray.toString();
+            }
+            ////HWM environment
+            var hwmEnvSelectionArray = [];
+            //HWM environment: coastal
+            if ($("#coastal")[0].checked && !($("#riverine")[0].checked)) {
+                hwmEnvSelectionArray.push("Coastal");
+            }
+            //HWM environment: riverine
+            if ($("#riverine")[0].checked && !($("#coastal")[0].checked) ) {
+                hwmEnvSelectionArray.push("Riverine");
+            }
+            var hwmEnvSelections = hwmEnvSelectionArray.toString();
+            //HWM survey status
+            var hwmSurveyStatusSelectionArray = [];
+            ///HWM survey status: complete
+            if ($("#surveyCompleteYes")[0].checked && !($("#surveyCompleteNo")[0].checked)) {
+                hwmSurveyStatusSelectionArray.push("true");
+            }
+            ///HWM survey status: not complete
+            if ($("#surveyCompleteNo")[0].checked && !($("#surveyCompleteYes")[0].checked)) {
+                hwmSurveyStatusSelectionArray.push("false");
+            }
+            var hwmSurveyStatusSelections = hwmSurveyStatusSelectionArray.toString();
+            //HWM stillwater status
+            var hwmStillwaterStatusSelectionArray = [];
+            ///HWM stillwater status: yes
+            if ($("#stillWaterYes")[0].checked && !($("#stillWaterNo")[0].checked)) {
+                hwmStillwaterStatusSelectionArray.push("true");
+            }
+            ///HWM stillwater status: no
+            if ($("#stillWaterNo")[0].checked  && !($("#stillWaterYes")[0].checked)) {
+                hwmStillwaterStatusSelectionArray.push("false");
+            }
+            var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
         }
-        //HWM quality
-        var hwmQualitySelections;
-        if ($('#hwmQualitySelect').val() !== null ){
-            var hwmQualitySelectionArray = $('#hwmQualitySelect').val();
-            hwmQualitySelections = hwmQualitySelectionArray.toString();
-        }
-        ////HWM environment
-        var hwmEnvSelectionArray = [];
-        //HWM environment: coastal
-        if ($("#coastal")[0].checked && !($("#riverine")[0].checked)) {
-            hwmEnvSelectionArray.push("Coastal");
-        }
-        //HWM environment: riverine
-        if ($("#riverine")[0].checked && !($("#coastal")[0].checked) ) {
-            hwmEnvSelectionArray.push("Riverine");
-        }
-        var hwmEnvSelections = hwmEnvSelectionArray.toString();
-        //HWM survey status
-        var hwmSurveyStatusSelectionArray = [];
-        ///HWM survey status: complete
-        if ($("#surveyCompleteYes")[0].checked && !($("#surveyCompleteNo")[0].checked)) {
-            hwmSurveyStatusSelectionArray.push("true");
-        }
-        ///HWM survey status: not complete
-        if ($("#surveyCompleteNo")[0].checked && !($("#surveyCompleteYes")[0].checked)) {
-            hwmSurveyStatusSelectionArray.push("false");
-        }
-        var hwmSurveyStatusSelections = hwmSurveyStatusSelectionArray.toString();
-        //HWM stillwater status
-        var hwmStillwaterStatusSelectionArray = [];
-        ///HWM stillwater status: yes
-        if ($("#stillWaterYes")[0].checked && !($("#stillWaterNo")[0].checked)) {
-            hwmStillwaterStatusSelectionArray.push("true");
-        }
-        ///HWM stillwater status: no
-        if ($("#stillWaterNo")[0].checked  && !($("#stillWaterYes")[0].checked)) {
-            hwmStillwaterStatusSelectionArray.push("false");
-        }
-        var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
-
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //PEAKS
-        var peakFromDate;
-        if ($("#peakFromDate")[0].value !== ""){
-            peakFromDate = $("#peakFromDate")[0].value;
+        if ($("#peakRad")[0].checked) {
+            var peakFromDate;
+            if ($("#peakFromDate")[0].value !== ""){
+                peakFromDate = $("#peakFromDate")[0].value;
+            }
+            var peakToDate;
+            if ($("#peakToDate")[0].value !== "") {
+                peakToDate = $("#peakToDate")[0].value;
+            }
         }
-        var peakToDate;
-        if ($("#peakToDate")[0].value !== "") {
-            peakToDate = $("#peakToDate")[0].value;
-        }
-
         $(this).button('reset');
     });
 
