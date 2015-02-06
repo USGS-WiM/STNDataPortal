@@ -213,9 +213,9 @@
                                     <label for="peakDatePicker" class="col-sm-3 control-label">Peak Date</label>
                                     <div class="col-sm-9">
                                         <div class="input-daterange input-group" id="peakDatePicker">
-                                            <input type="text" class="input-sm form-control" name="start" id="peakFromDate" />
+                                            <input type="text" class="input-sm form-control" name="start" id="peakStartDate" />
                                             <span class="input-group-addon">to</span>
-                                            <input type="text" class="input-sm form-control" name="end" id="peakToDate" />
+                                            <input type="text" class="input-sm form-control" name="end" id="peakEndDate" />
                                         </div>
                                     </div>
                                 </div>
@@ -245,18 +245,19 @@
                                     <div class="col-sm-10">
                                         <div class="btn-group" data-toggle="buttons" id="formatRadios">
                                             <label class="btn btn-primary active">
-                                                <input type="radio" name="csv" id="csvButton">
+                                                <input type="radio" name="formats" id="csvButton" checked>
                                                 Comma-separated (.csv)
                                             </label>
                                             <label class="btn btn-primary">
-                                                <input type="radio" name="tsv" id="tsvButton">
-                                                Tab-separated (.tsv)
+                                                <input type="radio" name="formats" id="jsonButton">
+                                                JSON
                                             </label>
-                                            <label class="btn btn-primary">
-                                                <input type="radio" name="html" id="htmlButton">
-                                                HTML (opens in new tab)
+                                            <label class="btn btn-primary ">
+                                                <input type="radio" name="formats" id="xmlButton">
+                                                XML
                                             </label>
                                         </div>
+                                        <br><i>JSON and XML results will open in a new tab</i>
                                     </div>
                                 </div>
                                 <div id="form-action">

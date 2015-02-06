@@ -43,13 +43,13 @@ $(document).ready(function () {
     $('#downloadButton').on("click", function () {
         $(this).button('downloading');
         //event type
-        var eventTypeSelections;
+        var eventTypeSelections = "";
         if ($('#evtTypeSelect').val() !== null){
             var evtTypeSelectionsArray = $('#evtTypeSelect').val();
             eventTypeSelections = evtTypeSelectionsArray.toString();
         }
         //event
-        var eventSelections;
+        var eventSelections = "";
         if ($('#evtSelect').val() !== null){
             var eventSelectionsArray = $('#evtSelect').val();
             eventSelections = eventSelectionsArray.toString();
@@ -67,16 +67,16 @@ $(document).ready(function () {
         if ($("#active")[0].checked && $("#complete")[0].checked || !($("#active")[0].checked) && !($("#complete")[0].checked)) {
             eventStatusSelectionArray.push(0);
         }
+        var eventStatusSelection =  eventStatusSelectionArray.toString();
 
-        var eventStatusSelections =  eventStatusSelectionArray.toString();
         //state
-        var stateSelections;
+        var stateSelections = "";
         if ($('#stateSelect').val() !== null){
             var stateSelectionsArray = $('#stateSelect').val();
             stateSelections = stateSelectionsArray.toString();
         }
         //county
-        var countySelections;
+        var countySelections = "";
         if ($('#countySelect').val() !== null){
             var countySelectionsArray = $('#countySelect').val();
             countySelections = countySelectionsArray.toString();
@@ -86,48 +86,58 @@ $(document).ready(function () {
         //SENSORS
         if ($("#sensorRad")[0].checked){
             //sensor type
-            var sensorTypeSelections;
+            var sensorTypeSelections = "";
             if ($('#sensorTypeSelect').val() !== null ){
                 var sensorTypeSelectionArray = $('#sensorTypeSelect').val();
                 sensorTypeSelections = sensorTypeSelectionArray.toString();
             }
             //sensor status
-            var sensorStatusSelections;
+            var sensorStatusSelections = "";
             if ($('#sensorStatusSelect').val() !== null ){
                 var sensorStatusSelectionArray = $('#sensorStatusSelect').val();
                 sensorStatusSelections = sensorStatusSelectionArray.toString();
             }
 
             //sensor collection condition
-            var collectConditionSelections;
+            var collectConditionSelections = "";
             if ($('#collectionConditionSelect').val() !== null ){
                 var collectConditionSelectionArray = $('#collectionConditionSelect').val();
                 collectConditionSelections = collectConditionSelectionArray.toString();
             }
 
             //sensor deployment type
-            var deploymentTypeSelections;
+            var deploymentTypeSelections = "";
             if ($('#deployTypeSelect').val() !== null ){
                 var deploymentTypeSelectionArray = $('#deployTypeSelect').val();
                 deploymentTypeSelections = deploymentTypeSelectionArray.toString();
             }
 
+            var sensorsURLRoot = "http://107.20.206.65/STNServices/Instruments";
+            var jsonSensorsURLRoot = "http://107.20.206.65/STNServices/Instruments.json";
+            var csvSensorsURLRoot = "http://107.20.206.65/STNServices/Instruments.csv";
+            var sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
 
-            var sensorsQueryURL = "http://107.20.206.65/STNServices/Instruments?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelections + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
-
-            console.log(sensorsQueryURL);
+            if ($("#jsonButton")[0].checked) {
+                window.open(jsonSensorsURLRoot + sensorsQueryString);
+            }
+            if ($("#xmlButton")[0].checked) {
+                window.open(sensorsURLRoot + sensorsQueryString);
+            }
+            if ($("#csvButton")[0].checked) {
+                window.open(csvSensorsURLRoot + sensorsQueryString);
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //HWMs
         if ($("#hwmRad")[0].checked) {
             //HWM types
-            var hwmTypeSelections;
+            var hwmTypeSelections = "";
             if ($('#hwmTypeSelect').val() !== null ){
                 var hwmTypeSelectionArray = $('#hwmTypeSelect').val();
                 hwmTypeSelections = hwmTypeSelectionArray.toString();
             }
             //HWM quality
-            var hwmQualitySelections;
+            var hwmQualitySelections = "";
             if ($('#hwmQualitySelect').val() !== null ){
                 var hwmQualitySelectionArray = $('#hwmQualitySelect').val();
                 hwmQualitySelections = hwmQualitySelectionArray.toString();
@@ -165,20 +175,51 @@ $(document).ready(function () {
                 hwmStillwaterStatusSelectionArray.push("false");
             }
             var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
+
+            var hwmsURLRoot = "http://107.20.206.65/STNServices/HWMs";
+            var jsonHWMsURLRoot = "http://107.20.206.65/STNServices/HWMs.json";
+            var csvHWMSURLRoot = "http://107.20.206.65/STNServices/HWMs.csv";
+            var hwmsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&HWMType=" + hwmTypeSelections + "&HWMQuality=" + hwmQualitySelections + "&HWMEnvironment=" + hwmEnvSelections + "&SurveyComplete=" + hwmSurveyStatusSelections + "&StillWater=" + hwmStillwaterStatusSelections;
+
+            if ($("#jsonButton")[0].checked) {
+                window.open(jsonHWMsURLRoot + hwmsQueryString);
+            }
+            if ($("#xmlButton")[0].checked) {
+                window.open(hwmsURLRoot + hwmsQueryString);
+            }
+            if ($("#csvButton")[0].checked) {
+                window.open(csvHWMSURLRoot + hwmsQueryString);
+            }
+
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //PEAKS
         if ($("#peakRad")[0].checked) {
-            var peakFromDate;
-            if ($("#peakFromDate")[0].value !== ""){
-                peakFromDate = $("#peakFromDate")[0].value;
+            var peakStartDate;
+            if ($("#peakStartDate").value !== ""){
+                peakStartDate = $("#peakStartDate")[0].value;
             }
-            var peakToDate;
-            if ($("#peakToDate")[0].value !== "") {
-                peakToDate = $("#peakToDate")[0].value;
+            var peakEndDate;
+            if ($("#peakEndDate").value !== "") {
+                peakEndDate = $("#peakEndDate")[0].value;
             }
         }
-        $(this).button('reset');
+        var peaksURLRoot = "http://107.20.206.65/STNServices/PeakSummaries";
+        var jsonPeaksURLRoot = "http://107.20.206.65/STNServices/PeakSummaries.json";
+        var csvPeaksURLRoot = "http://107.20.206.65/STNServices/PeakSummaries.csv";
+        var peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
+
+        if ($("#jsonButton")[0].checked) {
+            window.open(jsonPeaksURLRoot + peaksQueryString);
+        }
+        if ($("#xmlButton")[0].checked) {
+            window.open(peaksURLRoot + peaksQueryString);
+        }
+        if ($("#csvButton")[0].checked) {
+            window.open(csvPeaksURLRoot + peaksQueryString);
+        }
+
+        //$(this).button('reset');
     });
 
     var populateCountiesArray =  function  () {
