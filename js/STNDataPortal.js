@@ -40,7 +40,7 @@ $(document).ready(function () {
     $('#countySelect').select2({
         placeholder: "All Counties"
     });
-    $('#downloadButton').on("click", function () {
+    $('#downloadButton').on("click", function (e) {
         $(this).button('downloading');
         //event type
         var eventTypeSelections = "";
@@ -112,18 +112,31 @@ $(document).ready(function () {
                 deploymentTypeSelections = deploymentTypeSelectionArray.toString();
             }
 
-            var sensorsURLRoot = "http://107.20.206.65/STNServices/Instruments";
-            var jsonSensorsURLRoot = "http://107.20.206.65/STNServices/Instruments.json";
-            var csvSensorsURLRoot = "http://107.20.206.65/STNServices/Instruments.csv";
+            var sensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments";
+            var jsonSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.json";
+            var csvSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.csv";
             var sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
-
-            if ($("#jsonButton")[0].checked) {
+            var resultIsEmpty = false;
+            $.ajax({
+                dataType: 'json',
+                type: 'GET',
+                url: jsonSensorsURLRoot + sensorsQueryString,
+                async: false,
+                headers: {'Accept': '*/*'},
+                success: function (data) {
+                    if (data.length == 0) {
+                        alert("Your selection returns no results. Try a different combination of parameters.")
+                        resultIsEmpty = true;
+                    }
+                }
+            });
+            if ($("#jsonButton")[0].checked && resultIsEmpty === false ) {
                 window.open(jsonSensorsURLRoot + sensorsQueryString);
             }
-            if ($("#xmlButton")[0].checked) {
+            if ($("#xmlButton")[0].checked && resultIsEmpty === false) {
                 window.open(sensorsURLRoot + sensorsQueryString);
             }
-            if ($("#csvButton")[0].checked) {
+            if ($("#csvButton")[0].checked && resultIsEmpty === false) {
                 window.open(csvSensorsURLRoot + sensorsQueryString);
             }
         }
@@ -176,18 +189,31 @@ $(document).ready(function () {
             }
             var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
 
-            var hwmsURLRoot = "http://107.20.206.65/STNServices/HWMs";
-            var jsonHWMsURLRoot = "http://107.20.206.65/STNServices/HWMs.json";
-            var csvHWMSURLRoot = "http://107.20.206.65/STNServices/HWMs.csv";
+            var hwmsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs";
+            var jsonHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.json";
+            var csvHWMSURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.csv";
             var hwmsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&HWMType=" + hwmTypeSelections + "&HWMQuality=" + hwmQualitySelections + "&HWMEnvironment=" + hwmEnvSelections + "&SurveyComplete=" + hwmSurveyStatusSelections + "&StillWater=" + hwmStillwaterStatusSelections;
-
-            if ($("#jsonButton")[0].checked) {
+            var resultIsEmpty = false;
+            $.ajax({
+                dataType: 'json',
+                type: 'GET',
+                url: jsonHWMsURLRoot + hwmsQueryString,
+                async: false,
+                headers: {'Accept': '*/*'},
+                success: function (data) {
+                    if (data.length == 0) {
+                        alert("Your selection returns no results. Try a different combination of parameters.")
+                        resultIsEmpty = true;
+                    }
+                }
+            });
+            if ($("#jsonButton")[0].checked && resultIsEmpty === false) {
                 window.open(jsonHWMsURLRoot + hwmsQueryString);
             }
-            if ($("#xmlButton")[0].checked) {
+            if ($("#xmlButton")[0].checked && resultIsEmpty === false) {
                 window.open(hwmsURLRoot + hwmsQueryString);
             }
-            if ($("#csvButton")[0].checked) {
+            if ($("#csvButton")[0].checked && resultIsEmpty === false) {
                 window.open(csvHWMSURLRoot + hwmsQueryString);
             }
 
@@ -203,23 +229,37 @@ $(document).ready(function () {
             if ($("#peakEndDate").value !== "") {
                 peakEndDate = $("#peakEndDate")[0].value;
             }
-        }
-        var peaksURLRoot = "http://107.20.206.65/STNServices/PeakSummaries";
-        var jsonPeaksURLRoot = "http://107.20.206.65/STNServices/PeakSummaries.json";
-        var csvPeaksURLRoot = "http://107.20.206.65/STNServices/PeakSummaries.csv";
-        var peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
 
-        if ($("#jsonButton")[0].checked) {
-            window.open(jsonPeaksURLRoot + peaksQueryString);
+            var peaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries";
+            var jsonPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.json";
+            var csvPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.csv";
+            var peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
+            var resultIsEmpty = false;
+            $.ajax({
+                dataType: 'json',
+                type: 'GET',
+                url: jsonPeaksURLRoot + peaksQueryString,
+                async: false,
+                headers: {'Accept': '*/*'},
+                success: function (data) {
+                    if (data.length == 0) {
+                        alert("Your selection returns no results. Try a different combination of parameters.")
+                        resultIsEmpty = true;
+                    }
+                }
+            });
+            if ($("#jsonButton")[0].checked && resultIsEmpty === false) {
+                window.open(jsonPeaksURLRoot + peaksQueryString);
+            }
+            if ($("#xmlButton")[0].checked && resultIsEmpty === false) {
+                window.open(peaksURLRoot + peaksQueryString);
+            }
+            if ($("#csvButton")[0].checked && resultIsEmpty === false) {
+                window.open(csvPeaksURLRoot + peaksQueryString);
+            }
         }
-        if ($("#xmlButton")[0].checked) {
-            window.open(peaksURLRoot + peaksQueryString);
-        }
-        if ($("#csvButton")[0].checked) {
-            window.open(csvPeaksURLRoot + peaksQueryString);
-        }
-
-        //$(this).button('reset');
+        e.preventDefault();
+        $(this).button('reset');
     });
 
     var populateCountiesArray =  function  () {
@@ -227,7 +267,7 @@ $(document).ready(function () {
             $.ajax({
                 dataType: 'json',
                 type: 'GET',
-                url: "http://107.20.206.65/STNServices/Sites/CountiesByState.json?StateAbbrev=" + stnDataPortal.data.states[i].STATE_ABBREV ,
+                url: "http://stntest.wimcloud.usgs.gov/STNServices/Sites/CountiesByState.json?StateAbbrev=" + stnDataPortal.data.states[i].STATE_ABBREV ,
                 headers: {'Accept': '*/*'},
                 currentState: stnDataPortal.data.states[i].STATE_ABBREV,
                 success: function (data)  {
@@ -250,7 +290,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/eventtypes.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/eventtypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -276,7 +316,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/events.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/events.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -304,7 +344,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/Sites/States.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/Sites/States.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -446,7 +486,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/hwmtypes.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/hwmtypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
@@ -465,7 +505,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/hwmqualities.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/hwmqualities.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
@@ -487,7 +527,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/sensortypes.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/sensortypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -512,7 +552,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/statustypes.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/statustypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
@@ -530,7 +570,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/InstrCollectConditions.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/InstrCollectConditions.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
@@ -548,7 +588,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://107.20.206.65/STNServices/deploymenttypes.json',
+        url: 'http://stntest.wimcloud.usgs.gov/STNServices/deploymenttypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
