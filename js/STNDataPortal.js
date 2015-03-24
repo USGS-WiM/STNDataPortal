@@ -40,8 +40,29 @@ $(document).ready(function () {
     $('#countySelect').select2({
         placeholder: "All Counties"
     });
-    $('#downloadButton').on("click", function (e) {
-        $(this).button('downloading');
+
+    var csvQueryURL;
+    var jsonQueryURL;
+    var xmlQueryURL;
+
+    var jsonSensorsURLRoot;
+    var xmlSensorsURLRoot;
+    var csvSensorsURLRoot;
+    var sensorsQueryString;
+
+    var jsonHWMsURLRoot;
+    var xmlHWMsURLRoot;
+    var csvHWMsURLRoot;
+    var hwmsQueryString;
+
+    var xmlPeaksURLRoot;
+    var jsonPeaksURLRoot;
+    var csvPeaksURLRoot;
+    var peaksQueryString;
+
+    ///function to grab all values from the inputs, form into arrays, and build query strings
+    var buildQueryStrings =  function  () {
+
         //event type
         var eventTypeSelections = "";
         if ($('#evtTypeSelect').val() !== null){
@@ -112,33 +133,16 @@ $(document).ready(function () {
                 deploymentTypeSelections = deploymentTypeSelectionArray.toString();
             }
 
-            var sensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments";
-            var jsonSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.json";
-            var csvSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.csv";
-            var sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
-            var resultIsEmpty = false;
-            $.ajax({
-                dataType: 'json',
-                type: 'GET',
-                url: jsonSensorsURLRoot + sensorsQueryString,
-                async: false,
-                headers: {'Accept': '*/*'},
-                success: function (data) {
-                    if (data.length == 0) {
-                        alert("Your selection returns no results. Try a different combination of parameters.")
-                        resultIsEmpty = true;
-                    }
-                }
-            });
-            if ($("#jsonButton")[0].checked && resultIsEmpty === false ) {
-                window.open(jsonSensorsURLRoot + sensorsQueryString);
-            }
-            if ($("#xmlButton")[0].checked && resultIsEmpty === false) {
-                window.open(sensorsURLRoot + sensorsQueryString);
-            }
-            if ($("#csvButton")[0].checked && resultIsEmpty === false) {
-                window.open(csvSensorsURLRoot + sensorsQueryString);
-            }
+            xmlSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments";
+            jsonSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.json";
+            csvSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.csv";
+            sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
+            //var resultIsEmpty = false;
+
+            csvQueryURL = csvSensorsURLRoot + sensorsQueryString;
+            jsonQueryURL = jsonSensorsURLRoot + sensorsQueryString;
+            xmlQueryURL = xmlSensorsURLRoot + sensorsQueryString;
+
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
         //HWMs
@@ -189,33 +193,15 @@ $(document).ready(function () {
             }
             var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
 
-            var hwmsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs";
-            var jsonHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.json";
-            var csvHWMSURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.csv";
-            var hwmsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&HWMType=" + hwmTypeSelections + "&HWMQuality=" + hwmQualitySelections + "&HWMEnvironment=" + hwmEnvSelections + "&SurveyComplete=" + hwmSurveyStatusSelections + "&StillWater=" + hwmStillwaterStatusSelections;
-            var resultIsEmpty = false;
-            $.ajax({
-                dataType: 'json',
-                type: 'GET',
-                url: jsonHWMsURLRoot + hwmsQueryString,
-                async: false,
-                headers: {'Accept': '*/*'},
-                success: function (data) {
-                    if (data.length == 0) {
-                        alert("Your selection returns no results. Try a different combination of parameters.")
-                        resultIsEmpty = true;
-                    }
-                }
-            });
-            if ($("#jsonButton")[0].checked && resultIsEmpty === false) {
-                window.open(jsonHWMsURLRoot + hwmsQueryString);
-            }
-            if ($("#xmlButton")[0].checked && resultIsEmpty === false) {
-                window.open(hwmsURLRoot + hwmsQueryString);
-            }
-            if ($("#csvButton")[0].checked && resultIsEmpty === false) {
-                window.open(csvHWMSURLRoot + hwmsQueryString);
-            }
+            xmlHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs";
+            jsonHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.json";
+            csvHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.csv";
+            hwmsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&HWMType=" + hwmTypeSelections + "&HWMQuality=" + hwmQualitySelections + "&HWMEnvironment=" + hwmEnvSelections + "&SurveyComplete=" + hwmSurveyStatusSelections + "&StillWater=" + hwmStillwaterStatusSelections;
+            //var resultIsEmpty = false;
+
+            csvQueryURL = csvHWMsURLRoot + hwmsQueryString;
+            jsonQueryURL = jsonHWMsURLRoot + hwmsQueryString;
+            xmlQueryURL = xmlHWMsURLRoot + hwmsQueryString;
 
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -230,36 +216,130 @@ $(document).ready(function () {
                 peakEndDate = $("#peakEndDate")[0].value;
             }
 
-            var peaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries";
-            var jsonPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.json";
-            var csvPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.csv";
-            var peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
-            var resultIsEmpty = false;
-            $.ajax({
-                dataType: 'json',
-                type: 'GET',
-                url: jsonPeaksURLRoot + peaksQueryString,
-                async: false,
-                headers: {'Accept': '*/*'},
-                success: function (data) {
-                    if (data.length == 0) {
-                        alert("Your selection returns no results. Try a different combination of parameters.")
-                        resultIsEmpty = true;
-                    }
-                }
-            });
-            if ($("#jsonButton")[0].checked && resultIsEmpty === false) {
-                window.open(jsonPeaksURLRoot + peaksQueryString);
-            }
-            if ($("#xmlButton")[0].checked && resultIsEmpty === false) {
-                window.open(peaksURLRoot + peaksQueryString);
-            }
-            if ($("#csvButton")[0].checked && resultIsEmpty === false) {
-                window.open(csvPeaksURLRoot + peaksQueryString);
-            }
+            xmlPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries";
+            jsonPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.json";
+            csvPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.csv";
+            peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
+            //var resultIsEmpty = false;
+
+            csvQueryURL = csvPeaksURLRoot + peaksQueryString;
+            jsonQueryURL = jsonPeaksURLRoot + peaksQueryString;
+            xmlQueryURL = xmlPeaksURLRoot + peaksQueryString;
+
         }
-        e.preventDefault();
-        $(this).button('reset');
+    };
+
+    ///3 following variables are critical to the ajax calls for JSON and XML results preview.
+    var URLRoot;
+    var queryString;
+    var resultIsEmpty = false;
+    //$('#json').on("click", function (e) {
+    //
+    //    buildQueryStrings();
+    //
+    //    if ($("#sensorRad")[0].checked){
+    //        URLRoot = jsonSensorsURLRoot;
+    //        queryString = sensorsQueryString;
+    //    }
+    //    if ($("#hwmRad")[0].checked) {
+    //        URLRoot = jsonHWMsURLRoot;
+    //        queryString = hwmsQueryString;
+    //    }
+    //    if ($("#peakRad")[0].checked) {
+    //        URLRoot = jsonPeaksURLRoot;
+    //        queryString = peaksQueryString;
+    //    }
+    //    $.ajax({
+    //        dataType: 'json',
+    //        type: 'GET',
+    //        url: URLRoot + queryString,
+    //        async: false,
+    //        headers: {'Accept': '*/*'},
+    //        success: function (data) {
+    //            if (data.length == 0) {
+    //                alert("Your selection returns no results. Try a different combination of parameters.")
+    //                resultIsEmpty = true;
+    //            }
+    //            //do thing here with data: make preview visible and populate with the result (variable called "data")
+    //            $("#preview").toggle();
+    //
+    //        },
+    //        error: function (error) {
+    //            alert("Sorry, your filter request failed. Please try again.");
+    //        }
+    //    });
+    //});
+    //
+    //$('#xml').on("click", function (e) {
+    //
+    //    buildQueryStrings();
+    //
+    //    if ($("#sensorRad")[0].checked){
+    //        URLRoot = xmlSensorsURLRoot;
+    //        queryString = sensorsQueryString;
+    //    }
+    //    if ($("#hwmRad")[0].checked) {
+    //        URLRoot = xmlHWMsURLRoot;
+    //        queryString = hwmsQueryString;
+    //    }
+    //    if ($("#peakRad")[0].checked) {
+    //        URLRoot = xmlPeaksURLRoot;
+    //        queryString = peaksQueryString;
+    //    }
+    //    $.ajax({
+    //        dataType: 'xml',
+    //        type: 'GET',
+    //        url: URLRoot + queryString,
+    //        async: false,
+    //        headers: {'Accept': '*/*'},
+    //        success: function (data) {
+    //            if (data.length == 0) {
+    //                alert("Your selection returns no results. Try a different combination of parameters.")
+    //                resultIsEmpty = true;
+    //            }
+    //            //do thing here with data: make preview visible and populate with the result (variable called "data")
+    //            $("#preview").toggle();
+    //
+    //        },
+    //        error: function (error) {
+    //            alert("Sorry, your filter request failed. Please try again.");
+    //        }
+    //    });
+    //});
+
+    $('#downloadButton').on("click", function () {
+
+        var $btn = $(this).button('downloading');
+        buildQueryStrings();
+
+        $.ajax({
+            dataType: 'json',
+            type: 'GET',
+            url: jsonQueryURL,
+            async: false,
+            headers: {'Accept': '*/*'},
+            success: function (data) {
+                if (data.length == 0) {
+                    $btn.button('reset');
+                    alert("Your selection returns no results. Try a different combination of parameters.");
+                    resultIsEmpty = true;
+                } else {
+
+                    document.location.href = csvQueryURL;
+                    setTimeout(function () {
+                        $btn.button('reset');
+                    }, 4000);
+
+                }
+            },
+            error: function (error) {
+                $btn.button('reset');
+                alert("Sorry, your filter request failed. Please try again.");
+            }
+        });
+
+        //$btn.button('reset');
+        //e.preventDefault();
     });
 
     var populateCountiesArray =  function  () {

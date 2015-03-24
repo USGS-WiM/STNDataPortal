@@ -60,25 +60,27 @@
     font-size: 2em;
 }
 
-.btn-primary {
+.btn-default {
     background-color: #F37A49;
     /*border-color:#59595C;*/
-    border-color: #7E7E84
-font-family: BryantRegular;
+    border-color: #7E7E84;
+    color: #FFFFFF;
+/*font-family: BryantRegular;*/
 }
 
-.btn-primary:hover {
+.btn-default:hover {
     background-color: #7E7E84 ;
     border-color:#59595C;
 }
 
-.btn-primary.active{
+.btn-default.active{
     background-color: #7E7E84 ;
     border-color:#59595C;
+    color: #FFFFFF;
 }
 
 
-.btn-primary.disabled,.btn-primary.disabled.active {
+.btn-default.disabled,.btn-default.disabled.active {
     background-color: #F8AF92;
 }
 
