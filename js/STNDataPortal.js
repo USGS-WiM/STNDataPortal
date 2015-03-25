@@ -1,5 +1,6 @@
 /**
  * Created by bdraper on 11/10/2014.
+ * Copyright (c) 2015, Blake Draper, USGS WiM
  */
 var stnDataPortal = stnDataPortal || {
         data: {
@@ -13,6 +14,23 @@ var stnDataPortal = stnDataPortal || {
             deploymentTypes : [],
             hwmTypes: [],
             hwmQualities : []
+        },
+        globals: {
+            csvQueryURL : "",
+            jsonQueryURL : "",
+            xmlQueryURL : "",
+            jsonSensorsURLRoot : "",
+            xmlSensorsURLRoot: "",
+            csvSensorsURLRoot : "",
+            sensorsQueryString : "",
+            jsonHWMsURLRoot : "",
+            xmlHWMsURLRoot : "",
+            csvHWMsURLRoot : "",
+            hwmsQueryString : "",
+            xmlPeaksURLRoot : "",
+            jsonPeaksURLRoot : "",
+            csvPeaksURLRoot : "",
+            peaksQueryString : ""
         }
     };
 $(document).ready(function () {
@@ -40,25 +58,6 @@ $(document).ready(function () {
     $('#countySelect').select2({
         placeholder: "All Counties"
     });
-
-    var csvQueryURL;
-    var jsonQueryURL;
-    var xmlQueryURL;
-
-    var jsonSensorsURLRoot;
-    var xmlSensorsURLRoot;
-    var csvSensorsURLRoot;
-    var sensorsQueryString;
-
-    var jsonHWMsURLRoot;
-    var xmlHWMsURLRoot;
-    var csvHWMsURLRoot;
-    var hwmsQueryString;
-
-    var xmlPeaksURLRoot;
-    var jsonPeaksURLRoot;
-    var csvPeaksURLRoot;
-    var peaksQueryString;
 
     ///function to grab all values from the inputs, form into arrays, and build query strings
     var buildQueryStrings =  function  () {
@@ -133,15 +132,15 @@ $(document).ready(function () {
                 deploymentTypeSelections = deploymentTypeSelectionArray.toString();
             }
 
-            xmlSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments";
-            jsonSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.json";
-            csvSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.csv";
-            sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
+            stnDataPortal.globals.xmlSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments";
+            stnDataPortal.globals.jsonSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.json";
+            stnDataPortal.globals.csvSensorsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/Instruments.csv";
+            stnDataPortal.globals.sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
             //var resultIsEmpty = false;
 
-            csvQueryURL = csvSensorsURLRoot + sensorsQueryString;
-            jsonQueryURL = jsonSensorsURLRoot + sensorsQueryString;
-            xmlQueryURL = xmlSensorsURLRoot + sensorsQueryString;
+            stnDataPortal.globals.csvQueryURL = stnDataPortal.globals.csvSensorsURLRoot + stnDataPortal.globals.sensorsQueryString;
+            stnDataPortal.globals.jsonQueryURL = stnDataPortal.globals.jsonSensorsURLRoot + stnDataPortal.globals.sensorsQueryString;
+            stnDataPortal.globals.xmlQueryURL = stnDataPortal.globals.xmlSensorsURLRoot + stnDataPortal.globals.sensorsQueryString;
 
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -193,15 +192,15 @@ $(document).ready(function () {
             }
             var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
 
-            xmlHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs";
-            jsonHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.json";
-            csvHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.csv";
-            hwmsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&HWMType=" + hwmTypeSelections + "&HWMQuality=" + hwmQualitySelections + "&HWMEnvironment=" + hwmEnvSelections + "&SurveyComplete=" + hwmSurveyStatusSelections + "&StillWater=" + hwmStillwaterStatusSelections;
+            stnDataPortal.globals.xmlHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs";
+            stnDataPortal.globals.jsonHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.json";
+            stnDataPortal.globals.csvHWMsURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/HWMs.csv";
+            stnDataPortal.globals.hwmsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&HWMType=" + hwmTypeSelections + "&HWMQuality=" + hwmQualitySelections + "&HWMEnvironment=" + hwmEnvSelections + "&SurveyComplete=" + hwmSurveyStatusSelections + "&StillWater=" + hwmStillwaterStatusSelections;
             //var resultIsEmpty = false;
 
-            csvQueryURL = csvHWMsURLRoot + hwmsQueryString;
-            jsonQueryURL = jsonHWMsURLRoot + hwmsQueryString;
-            xmlQueryURL = xmlHWMsURLRoot + hwmsQueryString;
+            stnDataPortal.globals.csvQueryURL = stnDataPortal.globals.csvHWMsURLRoot + stnDataPortal.globals.hwmsQueryString;
+            stnDataPortal.globals.jsonQueryURL = stnDataPortal.globals.jsonHWMsURLRoot + stnDataPortal.globals.hwmsQueryString;
+            stnDataPortal.globals.xmlQueryURL = stnDataPortal.globals.xmlHWMsURLRoot + stnDataPortal.globals.hwmsQueryString;
 
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -216,129 +215,74 @@ $(document).ready(function () {
                 peakEndDate = $("#peakEndDate")[0].value;
             }
 
-            xmlPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries";
-            jsonPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.json";
-            csvPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.csv";
-            peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
+            stnDataPortal.globals.xmlPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries";
+            stnDataPortal.globals.jsonPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.json";
+            stnDataPortal.globals.csvPeaksURLRoot = "http://stntest.wimcloud.usgs.gov/STNServices/PeakSummaries.csv";
+            stnDataPortal.globals.peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
             //var resultIsEmpty = false;
 
-            csvQueryURL = csvPeaksURLRoot + peaksQueryString;
-            jsonQueryURL = jsonPeaksURLRoot + peaksQueryString;
-            xmlQueryURL = xmlPeaksURLRoot + peaksQueryString;
+            stnDataPortal.globals.csvQueryURL = stnDataPortal.globals.csvPeaksURLRoot + stnDataPortal.globals.peaksQueryString;
+            stnDataPortal.globals.jsonQueryURL = stnDataPortal.globals.jsonPeaksURLRoot + stnDataPortal.globals.peaksQueryString;
+            stnDataPortal.globals.xmlQueryURL = stnDataPortal.globals.xmlPeaksURLRoot + stnDataPortal.globals.peaksQueryString;
 
         }
     };
 
-    ///3 following variables are critical to the ajax calls for JSON and XML results preview.
-    var URLRoot;
-    var queryString;
-    var resultIsEmpty = false;
-    //$('#json').on("click", function (e) {
-    //
-    //    buildQueryStrings();
-    //
-    //    if ($("#sensorRad")[0].checked){
-    //        URLRoot = jsonSensorsURLRoot;
-    //        queryString = sensorsQueryString;
-    //    }
-    //    if ($("#hwmRad")[0].checked) {
-    //        URLRoot = jsonHWMsURLRoot;
-    //        queryString = hwmsQueryString;
-    //    }
-    //    if ($("#peakRad")[0].checked) {
-    //        URLRoot = jsonPeaksURLRoot;
-    //        queryString = peaksQueryString;
-    //    }
-    //    $.ajax({
-    //        dataType: 'json',
-    //        type: 'GET',
-    //        url: URLRoot + queryString,
-    //        async: false,
-    //        headers: {'Accept': '*/*'},
-    //        success: function (data) {
-    //            if (data.length == 0) {
-    //                alert("Your selection returns no results. Try a different combination of parameters.")
-    //                resultIsEmpty = true;
-    //            }
-    //            //do thing here with data: make preview visible and populate with the result (variable called "data")
-    //            $("#preview").toggle();
-    //
-    //        },
-    //        error: function (error) {
-    //            alert("Sorry, your filter request failed. Please try again.");
-    //        }
-    //    });
-    //});
-    //
-    //$('#xml').on("click", function (e) {
-    //
-    //    buildQueryStrings();
-    //
-    //    if ($("#sensorRad")[0].checked){
-    //        URLRoot = xmlSensorsURLRoot;
-    //        queryString = sensorsQueryString;
-    //    }
-    //    if ($("#hwmRad")[0].checked) {
-    //        URLRoot = xmlHWMsURLRoot;
-    //        queryString = hwmsQueryString;
-    //    }
-    //    if ($("#peakRad")[0].checked) {
-    //        URLRoot = xmlPeaksURLRoot;
-    //        queryString = peaksQueryString;
-    //    }
-    //    $.ajax({
-    //        dataType: 'xml',
-    //        type: 'GET',
-    //        url: URLRoot + queryString,
-    //        async: false,
-    //        headers: {'Accept': '*/*'},
-    //        success: function (data) {
-    //            if (data.length == 0) {
-    //                alert("Your selection returns no results. Try a different combination of parameters.")
-    //                resultIsEmpty = true;
-    //            }
-    //            //do thing here with data: make preview visible and populate with the result (variable called "data")
-    //            $("#preview").toggle();
-    //
-    //        },
-    //        error: function (error) {
-    //            alert("Sorry, your filter request failed. Please try again.");
-    //        }
-    //    });
-    //});
+    $('#showURLSButton').on("click", function (){
+        buildQueryStrings();
+        $.ajax({
+            dataType: 'json',
+            type: 'GET',
+            url: stnDataPortal.globals.jsonQueryURL,
+            async: false,
+            headers: {'Accept': '*/*'},
+            success: function (data) {
+                if (data.length === 0) {
+                    //alert("Your selection returns no results. Try a different combination of parameters.");
+                    $('#noResultsModal').modal('show');
+                } else {
+                    document.getElementById("jsonString").innerHTML = stnDataPortal.globals.jsonQueryURL;
+                    document.getElementById("xmlString").innerHTML = stnDataPortal.globals.xmlQueryURL;
+                    $('#stringsModal').modal('show');
+                }
+            },
+            error: function (error) {
+                $('#failedRequestModal').modal('show');
+                //alert("Sorry, your filter request failed. Please try different parameters.");
+            }
+        });
+    });
 
     $('#downloadButton').on("click", function () {
 
         var $btn = $(this).button('downloading');
         buildQueryStrings();
-
+        //ajax call below uses the json endpoint (arbitrary - could also be XML) to check for length and validity of response before telling the browser to download the csv
         $.ajax({
             dataType: 'json',
             type: 'GET',
-            url: jsonQueryURL,
+            url: stnDataPortal.globals.jsonQueryURL,
             async: false,
             headers: {'Accept': '*/*'},
             success: function (data) {
-                if (data.length == 0) {
+                if (data.length === 0) {
                     $btn.button('reset');
-                    alert("Your selection returns no results. Try a different combination of parameters.");
-                    resultIsEmpty = true;
+                    //alert("Your selection returns no results. Try a different combination of parameters.");
+                    $('#noResultsModal').modal('show');
                 } else {
-
-                    document.location.href = csvQueryURL;
+                    document.location.href = stnDataPortal.globals.csvQueryURL;
                     setTimeout(function () {
                         $btn.button('reset');
                     }, 4000);
-
                 }
             },
             error: function (error) {
                 $btn.button('reset');
-                alert("Sorry, your filter request failed. Please try again.");
+                $('#failedRequestModal').modal('show');
+                //alert("Sorry, your filter request failed. Please try different parameters.");
             }
         });
 
-        //$btn.button('reset');
         //e.preventDefault();
     });
 
@@ -354,7 +298,7 @@ $(document).ready(function () {
                     stnDataPortal.data.counties[(this.currentState)] = data;
                 },
                 error: function (error) {
-                    console.log("Error retrieving counties. The error is: ");
+                    console.log("Error retrieving counties. The error is: " + error);
                 }
             });
         }

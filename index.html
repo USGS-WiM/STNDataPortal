@@ -241,6 +241,15 @@
                             <!--<h4 class="formSectionHead">Data Format Options</h4>-->
                             <form class="form-horizontal" role="form">
 
+                                <div id="showURLSButtonForm" class="form-group">
+                                    <label for="showURLSButton" class="control-label col-sm-2 masterFormLabel" id="showURLSButtonLabel">      </label>
+                                    <div id="showURLSButtonDiv">
+                                        <div class="col-sm-10">
+                                            <a href="#" id="showURLSButton" role="button" class="btn btn-grey" ><span id="dwnLd" class="glyphicon glyphicon-globe"></span> Get REST URLs</a>
+                                        </div>
+                                    </div>
+
+                                </div>
                                 <div id="downloadBtnForm" class="form-group">
                                     <label for="downloadButton" class="control-label col-sm-2 masterFormLabel" id="dwnLoadButtonLabel">      </label>
                                     <div id="downloadBtnDiv">
@@ -248,7 +257,6 @@
                                             <a href="#" id="downloadButton" role="button" class="btn btn-primary btn-lg"  data-downloading-text="DOWNLOADING..."><span id="dwnLd" class="glyphicon glyphicon-download"></span>  DOWNLOAD</a>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div id="messageForm" class="form-group">
                                     <div class="col-sm-2"></div>
@@ -256,7 +264,16 @@
                                         <i>Data will download in CSV format</i>
                                     </div>
                                 </div>
+                                <!-- leaving in for now, in case want to revert to using it: REST URLs div -->
+                                <!--<div id="stringsDiv" class="form-group" style="display:none">-->
+                                    <!--<label for="jsonStringDiv" class="control-label">JSON REST Service URL</label>-->
+                                    <!--<div id="jsonStringDiv" class="highlight"><pre><code id="jsonString" class="language-html" data-lang="html"></code></pre>-->
+                                    <!--</div>-->
 
+                                    <!--<label for="jsonStringDiv" class="control-label">XML REST Service URL</label>-->
+                                    <!--<div id="xmlStringDiv" class="highlight"><pre><code id="xmlString" class="language-html" data-lang="html"></code></pre>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                             </form>
                         </div>
                     </div>
@@ -265,6 +282,68 @@
         </div>
     </div>
 </div>
+<!--end main body markup -->
+<!-- begin modals -->
+<div class="modal fade" id="noResultsModal" tabindex="-1" role="dialog" aria-labelledby="noResultsModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Your selection returns no results. Please try a different combination of parameters.</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="failedRequestModal" tabindex="-1" role="dialog" aria-labelledby="failedRequestModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>Sorry, your filter request failed. Please try different parameters.</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="stringsModal" tabindex="-1" role="dialog" aria-labelledby="stringsModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+            <h4 class="modal-title" id="myModalLabel"> <span class="glyphicon glyphicon-globe"></span> Web service REST URLs</h4>
+                <h5>Copy and paste URLs into browser window to view</h5>
+            </div>
+            <div class="modal-body">
+                <div id="stringsDiv" class="form-group" >
+                    <label for="jsonStringDiv" class="control-label">JSON REST Service URL</label>
+                    <div id="jsonStringDiv" class="highlight"><pre><code id="jsonString" class="language-html" data-lang="html"></code></pre>
+                    </div>
+                    <label for="jsonStringDiv" class="control-label">XML REST Service URL</label>
+                    <div id="xmlStringDiv" class="highlight"><pre><code id="xmlString" class="language-html" data-lang="html"></code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                </br><button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modals -->
 
 </body>
 

@@ -84,6 +84,16 @@
     background-color: #F8AF92;
 }
 
+.btn-grey {
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.btn-grey:hover {
+    background-color: #7E7E84 ;
+    border-color:#59595C;
+
+}
 
 .panel-default .panel-heading{
     background-color:#59595C;
