@@ -61,24 +61,21 @@
 }
 
 .btn-default {
-    background-color: #F37A49;
-    /*border-color:#59595C;*/
-    border-color: #7E7E84;
+    background-color: #7E7E84 ;
+    border-color:#59595C;
     color: #FFFFFF;
-/*font-family: BryantRegular;*/
 }
 
 .btn-default:hover {
-    background-color: #7E7E84 ;
-    border-color:#59595C;
+    background-color: #F37A49;
+    border-color: #7E7E84;
 }
 
 .btn-default.active{
-    background-color: #7E7E84 ;
-    border-color:#59595C;
+    background-color: #F37A49;
+    border-color: #7E7E84;
     color: #FFFFFF;
 }
-
 
 .btn-default.disabled,.btn-default.disabled.active {
     background-color: #F8AF92;
