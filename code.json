@@ -1,0 +1,48 @@
+[
+  {
+    "name": "Wimpo",
+    "organization": "U.S. Geological Survey",
+    "description": "Short-term Network (STN) data portal",
+    "version": "v0.0.0",
+    "status": "Production"
+
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain",
+          "URL": "https://github.com/USGS-WiM/STNDataPortal/blob/master/LICENSE.md"
+        }
+      ]
+    },
+
+    "homepageURL": "https://stn.wim.usgs.gov/stndataportal/",
+    "downloadURL": "https://github.com/USGS-WiM/STNDataPortal/archive/master.zip",
+    "disclaimerURL": "https://github.com/USGS-WiM/STNDataPortal/blob/master/DISCLAIMER.md",
+    "repositoryUrl": "https://github.com/USGS-WiM/STNDataPortal",
+    "vcs": "git",
+
+    "laborHours": null,
+
+    "tags": [
+      "stn",
+      "short-term network",
+      "data",
+      "portal",
+      "data portal"
+    ],
+
+    "languages": [
+      "javascript"
+    ],
+
+    "contact": {
+      "name": "Blake Draper",
+      "email": "bdraper@usgs.gov"
+    },
+
+    "date": {
+      "metadataLastUpdated": "2018-02-16"
+    }
+  }
+]
