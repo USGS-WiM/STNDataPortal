@@ -1,6 +1,6 @@
 [
   {
-    "name": "Wimpo",
+    "name": "STNDataPortal",
     "organization": "U.S. Geological Survey",
     "description": "Short-term Network (STN) data portal",
     "version": "v0.0.0",
@@ -42,7 +42,7 @@
     },
 
     "date": {
-      "metadataLastUpdated": "2018-02-16"
+      "metadataLastUpdated": "2019-04-25"
     }
   }
 ]
