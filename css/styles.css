@@ -8,19 +8,19 @@
 
 @font-face {
     font-family: BryantRegular;
-    src: url('../../fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebRegular.eot');
-    src: url('../../fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebRegular.eot?#iefix') format('embedded-opentype'),
-    url('../../fonts/Bryant2Combo/Bryant2Web_WOFF/BryantWebRegular.woff') format('woff'),
-    url('../../fonts/Bryant2Combo/Bryant2/Bryant-Regular.otf') format('openType');
+    src: url('/STNfonts/Bryant2Combo/Bryant2Web_EOT/BryantWebRegular.eot');
+    src: url('/STNfonts/Bryant2Combo/Bryant2Web_EOT/BryantWebRegular.eot?#iefix') format('embedded-opentype'),
+    url('/STNfonts/Bryant2Combo/Bryant2Web_WOFF/BryantWebRegular.woff') format('woff'),
+    url('/STNfonts/Bryant2Combo/Bryant2/Bryant-Regular.otf') format('openType');
 }
 
 
 @font-face {
     font-family: BryantBold;
-    src: url('../../fonts/fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebBold.eot');
-    src: url('../../fonts/Bryant2Combo/Bryant2Web_EOT/BryantWebBold.eot?#iefix') format('embedded-opentype'),
-    url('../../fonts/Bryant2Combo/Bryant2Web_WOFF/BryantWebBold.woff') format('woff'),
-    url('../../fonts/Bryant2Combo/Bryant2/Bryant-Bold.otf') format('openType');
+    src: url('/STNfonts/Bryant2Combo/Bryant2Web_EOT/BryantWebBold.eot');
+    src: url('/STNfonts/Bryant2Combo/Bryant2Web_EOT/BryantWebBold.eot?#iefix') format('embedded-opentype'),
+    url('/STNfonts/Bryant2Combo/Bryant2Web_WOFF/BryantWebBold.woff') format('woff'),
+    url('/STNfonts/Bryant2Combo/Bryant2Combo/Bryant2/Bryant-Bold.otf') format('openType');
 
 }
 
