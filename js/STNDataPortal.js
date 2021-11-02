@@ -16,6 +16,7 @@ var stnDataPortal = stnDataPortal || {
             hwmQualities : []
         },
         globals: {
+            webServicesRoot: 'https://stn.wim.usgs.gov/STNServices',
             csvQueryURL : "",
             jsonQueryURL : "",
             xmlQueryURL : "",
@@ -133,10 +134,10 @@ $(document).ready(function () {
                 deploymentTypeSelections = deploymentTypeSelectionArray.toString();
             }
 
-            stnDataPortal.globals.xmlSensorsURLRoot = "http://stn.wim.usgs.gov/STNServices/Instruments";
-            stnDataPortal.globals.jsonSensorsURLRoot = "http://stn.wim.usgs.gov/STNServices/Instruments.json";
-            stnDataPortal.globals.csvSensorsURLRoot = "http://stn.wim.usgs.gov/STNServices/Instruments.csv";
-            stnDataPortal.globals.sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
+            stnDataPortal.globals.xmlSensorsURLRoot = stnDataPortal.globals.webServicesRoot  + "/Instruments/FilteredInstruments";
+            stnDataPortal.globals.jsonSensorsURLRoot = stnDataPortal.globals.webServicesRoot  + "/Instruments/FilteredInstruments.json";
+            stnDataPortal.globals.csvSensorsURLRoot = stnDataPortal.globals.webServicesRoot  + "/Instruments/FilteredInstruments.csv";
+            stnDataPortal.globals.sensorsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&SensorType=" + sensorTypeSelections + "&CurrentStatus=" + sensorStatusSelections + "&CollectionCondition=" + collectConditionSelections + "&DeploymentType=" + deploymentTypeSelections;
             //var resultIsEmpty = false;
 
             stnDataPortal.globals.csvQueryURL = stnDataPortal.globals.csvSensorsURLRoot + stnDataPortal.globals.sensorsQueryString;
@@ -193,9 +194,9 @@ $(document).ready(function () {
             }
             var hwmStillwaterStatusSelections = hwmStillwaterStatusSelectionArray.toString();
 
-            stnDataPortal.globals.xmlHWMsURLRoot = "http://stn.wim.usgs.gov/STNServices/HWMs/FilteredHWMs";
-            stnDataPortal.globals.jsonHWMsURLRoot = "http://stn.wim.usgs.gov/STNServices/HWMs/FilteredHWMs.json";
-            stnDataPortal.globals.csvHWMsURLRoot = "http://stn.wim.usgs.gov/STNServices/HWMs/FilteredHWMs.csv";
+            stnDataPortal.globals.xmlHWMsURLRoot = stnDataPortal.globals.webServicesRoot  + "/HWMs/FilteredHWMs";
+            stnDataPortal.globals.jsonHWMsURLRoot = stnDataPortal.globals.webServicesRoot  + "/HWMs/FilteredHWMs.json";
+            stnDataPortal.globals.csvHWMsURLRoot = stnDataPortal.globals.webServicesRoot  + "/HWMs/FilteredHWMs.csv";
             stnDataPortal.globals.hwmsQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&HWMType=" + hwmTypeSelections + "&HWMQuality=" + hwmQualitySelections + "&HWMEnvironment=" + hwmEnvSelections + "&SurveyComplete=" + hwmSurveyStatusSelections + "&StillWater=" + hwmStillwaterStatusSelections;
             //var resultIsEmpty = false;
 
@@ -216,9 +217,9 @@ $(document).ready(function () {
                 peakEndDate = $("#peakEndDate")[0].value;
             }
 
-            stnDataPortal.globals.xmlPeaksURLRoot = "http://stn.wim.usgs.gov/STNServices/PeakSummaries/FilteredPeaks";
-            stnDataPortal.globals.jsonPeaksURLRoot = "http://stn.wim.usgs.gov/STNServices/PeakSummaries/FilteredPeaks.json";
-            stnDataPortal.globals.csvPeaksURLRoot = "http://stn.wim.usgs.gov/STNServices/PeakSummaries/FilteredPeaks.csv";
+            stnDataPortal.globals.xmlPeaksURLRoot = stnDataPortal.globals.webServicesRoot  + "/PeakSummaries/FilteredPeaks";
+            stnDataPortal.globals.jsonPeaksURLRoot = stnDataPortal.globals.webServicesRoot  + "/PeakSummaries/FilteredPeaks.json";
+            stnDataPortal.globals.csvPeaksURLRoot = stnDataPortal.globals.webServicesRoot  + "/PeakSummaries/FilteredPeaks.csv";
             stnDataPortal.globals.peaksQueryString = "?Event=" + eventSelections + "&EventType=" + eventTypeSelections + "&EventStatus=" + eventStatusSelection + "&States=" + stateSelections + "&County=" + countySelections + "&StartDate="  + peakStartDate + "&EndDate=" + peakEndDate;
             //var resultIsEmpty = false;
 
@@ -292,9 +293,9 @@ $(document).ready(function () {
             $.ajax({
                 dataType: 'json',
                 type: 'GET',
-                url: "http://stn.wim.usgs.gov/STNServices/Sites/CountiesByState.json?StateAbbrev=" + stnDataPortal.data.states[i].STATE_ABBREV ,
+                url: stnDataPortal.globals.webServicesRoot  + "/Sites/CountiesByState.json?StateAbbrev=" + stnDataPortal.data.states[i].state_abbrev ,
                 headers: {'Accept': '*/*'},
-                currentState: stnDataPortal.data.states[i].STATE_ABBREV,
+                currentState: stnDataPortal.data.states[i].state_abbrev,
                 success: function (data)  {
                     stnDataPortal.data.counties[(this.currentState)] = data;
                 },
@@ -315,7 +316,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/eventtypes.json',
+        url: stnDataPortal.globals.webServicesRoot + '/eventtypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -326,8 +327,8 @@ $(document).ready(function () {
                 else {return 0}
             });
             for (var i=0; i<data.length; i++){
-                $('#evtTypeSelect').append("<option value='" + data[i].EVENT_TYPE_ID + "'>" + data[i].TYPE + "</option>");
-                //data[i].id = data[i].EVENT_TYPE_ID;
+                $('#evtTypeSelect').append("<option value='" + data[i].event_type_id + "'>" + data[i].type + "</option>");
+                //data[i].id = data[i].event_type_id;
                 stnDataPortal.data.eventTypes.push(data[i]);
             }
         },
@@ -341,19 +342,19 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/events.json',
+        url: stnDataPortal.globals.webServicesRoot + '/events.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
-                var eventA = a.EVENT_NAME;
-                var eventB = b.EVENT_NAME;
+                var eventA = a.event_name;
+                var eventB = b.event_name;
                 if (eventA < eventB) {return -1}
                 if (eventA > eventB) {return 1}
                 else {return 0}
             });
             for (var i=0; i<data.length; i++){
-                $('#evtSelect').append("<option value='" + data[i].EVENT_ID + "'>" + data[i].EVENT_NAME + "</option>");
-                data[i].id = data[i].EVENT_ID;
+                $('#evtSelect').append("<option value='" + data[i].event_id + "'>" + data[i].event_name + "</option>");
+                data[i].id = data[i].event_id;
                 stnDataPortal.data.events.push(data[i]);
             }
         },
@@ -369,18 +370,18 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/Sites/States.json',
+        url: stnDataPortal.globals.webServicesRoot + '/States.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
-                var stateA = a.STATE_NAME;
-                var stateB = b.STATE_NAME;
+                var stateA = a.state_name;
+                var stateB = b.state_name;
                 if (stateA < stateB) {return -1}
                 if (stateA > stateB) {return 1}
                 else {return 0}
             });
             for (var i=0; i<data.length; i++){
-                $('#stateSelect').append("<option value='" + data[i].STATE_ABBREV + "'>" + data[i].STATE_NAME + "</option>");
+                $('#stateSelect').append("<option value='" + data[i].state_abbrev + "'>" + data[i].state_name + "</option>");
                 data[i].id = data[i];
                 stnDataPortal.data.states.push(data[i]);
             }
@@ -400,17 +401,17 @@ $(document).ready(function () {
                 selectedEvtTypeIds.push(Number(selection.val[i]));
             }
             var currentEvents  = stnDataPortal.data.events.filter (function (element)  {
-                return selectedEvtTypeIds.indexOf(element.EVENT_TYPE_ID) > -1;
+                return selectedEvtTypeIds.indexOf(element.event_type_id) > -1;
             });
             $('#evtSelect').html("");
             //$("#evtSelect").select2("val", "");
             for (var x=0; x<currentEvents.length; x++) {
-                $('#evtSelect').append("<option value='" + currentEvents[x].EVENT_ID + "'>" + currentEvents[x].EVENT_NAME + "</option>");
+                $('#evtSelect').append("<option value='" + currentEvents[x].event_id + "'>" + currentEvents[x].event_name + "</option>");
             }
         } else {
             $('#evtSelect').html("");
             for (var i=0; i<stnDataPortal.data.events.length; i++){
-                $('#evtSelect').append("<option value='" + stnDataPortal.data.events[i].EVENT_ID + "'>" + stnDataPortal.data.events[i].EVENT_NAME + "</option>");
+                $('#evtSelect').append("<option value='" + stnDataPortal.data.events[i].event_id + "'>" + stnDataPortal.data.events[i].event_name + "</option>");
             }
         }
     });
@@ -451,12 +452,12 @@ $(document).ready(function () {
         for (var i = 0; i < stnDataPortal.data.events.length; i++)
         {
             // If this is not one of the chosen events, skip it.
-            if (selectedEventIDNumbers.indexOf(stnDataPortal.data.events[i].EVENT_ID) == -1)
+            if (selectedEventIDNumbers.indexOf(stnDataPortal.data.events[i].event_id) == -1)
             {
                 continue;
             }
             // Add the event-type ID to the list.
-            selectedEventTypeIDs.push(stnDataPortal.data.events[i].EVENT_TYPE_ID);
+            selectedEventTypeIDs.push(stnDataPortal.data.events[i].event_type_id);
         }
         // Reduce the array of selected event-type IDs to only unique elements.
         var distinctSelectedEventTypeIDs = onlyUnique(selectedEventTypeIDs);
@@ -485,7 +486,7 @@ $(document).ready(function () {
         for (var key in stnDataPortal.data.counties){
             for(var i=0; i<stnDataPortal.data.counties[key].length; i++ ){
 
-                var value = stnDataPortal.data.counties[key][i].COUNTY_NAME;
+                var value = stnDataPortal.data.counties[key][i].county_name;
                 if (statesSelected.val.indexOf(key) > -1) {
                     currentCounties = currentCounties.concat(value);
                 }
@@ -511,12 +512,12 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/hwmtypes.json',
+        url: stnDataPortal.globals.webServicesRoot +  '/hwmtypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
-                $('#hwmTypeSelect').append("<option value='" + data[i].HWM_TYPE_ID + "'>" + data[i].HWM_TYPE + "</option>");
-                data[i].id = data[i].HWM_TYPE_ID;
+                $('#hwmTypeSelect').append("<option value='" + data[i].hwm_type_id + "'>" + data[i].hwm_type + "</option>");
+                data[i].id = data[i].hwm_type_id;
                 stnDataPortal.data.hwmTypes.push(data[i]);
             }
         },
@@ -530,12 +531,12 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/hwmqualities.json',
+        url: stnDataPortal.globals.webServicesRoot + '/hwmqualities.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
-                $('#hwmQualitySelect').append("<option value='" + data[i].HWM_QUALITY_ID + "'>" + data[i].HWM_QUALITY + "</option>");
-                data[i].id = data[i].HWM_QUALITY_ID;
+                $('#hwmQualitySelect').append("<option value='" + data[i].hwm_quality_id + "'>" + data[i].hwm_quality + "</option>");
+                data[i].id = data[i].hwm_quality_id;
                 stnDataPortal.data.hwmQualities.push(data[i]);
             }
         },
@@ -552,7 +553,7 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/sensortypes.json',
+        url: stnDataPortal.globals.webServicesRoot + '/sensortypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             data.sort(function (a,b) {
@@ -563,7 +564,7 @@ $(document).ready(function () {
                 else {return 0}
             });
             for (var i=0; i<data.length; i++){
-                $('#sensorTypeSelect').append("<option value='" + data[i].SENSOR_TYPE_ID + "'>" + data[i].SENSOR + "</option>");
+                $('#sensorTypeSelect').append("<option value='" + data[i].sensor_type_id + "'>" + data[i].sensor + "</option>");
                 stnDataPortal.data.sensorTypes.push(data[i]);
             }
         },
@@ -577,11 +578,11 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/statustypes.json',
+        url: stnDataPortal.globals.webServicesRoot + '/statustypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
-                $('#sensorStatusSelect').append("<option value='" + data[i].STATUS_TYPE_ID + "'>" + data[i].STATUS + "</option>");
+                $('#sensorStatusSelect').append("<option value='" + data[i].status_type_id + "'>" + data[i].status + "</option>");
                 stnDataPortal.data.sensorStatusTypes.push(data[i]);
             }
         },
@@ -595,11 +596,11 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/InstrCollectConditions.json',
+        url: stnDataPortal.globals.webServicesRoot + '/InstrCollectConditions.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
-                $('#collectionConditionSelect').append("<option value='" + data[i].ID + "'>" + data[i].CONDITION + "</option>");
+                $('#collectionConditionSelect').append("<option value='" + data[i].id + "'>" + data[i].condition + "</option>");
                 stnDataPortal.data.collectionConditions.push(data[i]);
             }
         },
@@ -613,11 +614,11 @@ $(document).ready(function () {
     $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://stn.wim.usgs.gov/STNServices/deploymenttypes.json',
+        url: stnDataPortal.globals.webServicesRoot + '/deploymenttypes.json',
         headers: {'Accept': '*/*'},
         success: function (data) {
             for (var i=0; i<data.length; i++){
-                $('#deployTypeSelect').append("<option value='" + data[i].DEPLOYMENT_TYPE_ID + "'>" + data[i].METHOD + "</option>");
+                $('#deployTypeSelect').append("<option value='" + data[i].deployment_type_id + "'>" + data[i].method + "</option>");
                 stnDataPortal.data.deploymentTypes.push(data[i]);
             }
         },
